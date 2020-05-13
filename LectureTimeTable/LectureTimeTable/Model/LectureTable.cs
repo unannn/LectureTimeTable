@@ -4,22 +4,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LTT
+namespace LectureTimeTable
 {
     class LectureTable
     {
-        private int key;
-        private string departmentOfOpening;
-        private int courseNumber;
-        private int dividedClassNumber;
-        private string courseTitle;
+        private int key;                    //primary key
+        private string departmentOfOpening;  //개설학과전공
+        private int courseNumber;            //학수번호
+        private int dividedClassNumber;        //분반
+        private string courseTitle;            //교과목명
         private string classification; //이수구분 (전공필수 등)
         private int year;    //학년
         private double credit; // 학점
-        private string dayAndLectureTime;
-        private string lectureRoom;
-        private string professorName;
-        private string language;
+        private string dayAndLectureTime;     //요일및강의시간
+        private string lectureRoom;             //강의실
+        private string professorName;          //교수명
+        private string language;              //언어
+
         public int Key
         {
             get { return key; }
@@ -88,12 +89,13 @@ namespace LTT
             get { return language; }
             set { language = value;}
         }
-        public LectureTable(int key,string departmentOfOpening,int courseNumber, int dividedClassNumber,string courseTitile,string classification,int year, double credit,string dayAndLectureTime,string lectureRoom,string professorName,string language )
+        public LectureTable(int key,string departmentOfOpening,int courseNumber, int dividedClassNumber,string courseTitle,string classification,int year, double credit,string dayAndLectureTime,string lectureRoom,string professorName,string language )
         {
             this.key = key;
             this.departmentOfOpening = departmentOfOpening;
             this.courseNumber = courseNumber;
             this.dividedClassNumber = dividedClassNumber;
+            this.courseTitle = courseTitle;
             this.classification = classification;
             this.year = year;
             this.credit = credit;
