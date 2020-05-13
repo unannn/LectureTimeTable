@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Excel = Microsoft.Office.Interop.Excel;   // Excel namespace 참조
 
-namespace ConsoleApp3
+namespace LTT
 {
     class LTTProgram
     {
@@ -13,7 +13,8 @@ namespace ConsoleApp3
         // C#에서 Excel을 사용하는 자세한 방법은 검색을 통해 스스로 공부해봅시다.
         static void Main(string[] args)
         {
-            Console.WriteLine(1);
+            LectureTimeTable lectureTimeTable = new LectureTimeTable();
+            lectureTimeTable.StartProgram();
 
             //try
             //{
