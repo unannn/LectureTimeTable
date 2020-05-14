@@ -20,8 +20,9 @@ namespace LectureTimeTable
         //사용자 입력 관련
         public const int START_NUMBER = 1;
         public const int WRONG_INPUT = -1;
+        public const string WRONG_STRING = null;
 
-        // 데이터 타
+        // 데이터 타입
         public const int KEY = 1;
         public const int DEPARTMENT = 2;
         public const int COURSE_NUMBER = 3;
@@ -35,5 +36,15 @@ namespace LectureTimeTable
         public const int PROFESSOR_NAME = 11;
         public const int LANGUAGE = 12;
 
+        //관심과목담기
+
+        public const int My_INTEREST_LECTURES = 1;
+        public const int INTEREST_LECTURE_SEARCHING = 2;
+        public const int INTEREST_LECTURE_DELETION = 3;
+        public const int INTEREST_LECTURE_ENDING = 4;
+
+        //출력 후 첫줄 좌표
+        public const int UNDER_TITLE_Y = 11;
+        public const int UNDER_TABLE_Y = 35;
     }
 }

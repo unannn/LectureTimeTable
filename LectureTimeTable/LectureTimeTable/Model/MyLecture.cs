@@ -8,13 +8,22 @@ namespace LectureTimeTable
 {
     class MyLecture
     {
-        private List<LectureTable> myEnterestCourse;
-        private List<LectureTable> mySucessfulCourse;
+        public List<LectureTable> myInterestCourse;
+        public List<LectureTable> mySucessfulCourse;
+
+        private double myCurrentCredits;
+
+        public double MyCurrentCredits
+        {
+            get { return myCurrentCredits; }
+            set { myCurrentCredits = value; }
+        }
 
         public MyLecture()
         {
-            myEnterestCourse = new List<LectureTable>();
+            myInterestCourse = new List<LectureTable>();
             mySucessfulCourse = new List<LectureTable>();
+            myCurrentCredits = 0;
         }
 
     }

@@ -7,20 +7,26 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace LectureTimeTable
 {
-    class LectureController
+    class LectureController:ControllerTool
     {
         private int currentState;
-        
+        private int childCurrentState;
         public int Currentstate
         {
             get { return currentState; }
             set { currentState = value; }
         }
+        public int ChildCurrentstate
+        {
+            get { return childCurrentState; }
+            set { childCurrentState = value; }
+        }
         public LectureController()
         {
             currentState = Constants.START_MENU;
+            childCurrentState = Constants.START_MENU;
         }
-         
+
         public void intializeTable(List<LectureTable> lectureTable)  //엑셀에서 시간표를 불러와 lectureTable 리스트에 한행씩 저장
         {
             Excel.Application application = new Excel.Application();
@@ -58,9 +64,56 @@ namespace LectureTimeTable
             }          
         }
 
-        public void RunEnrollment(List<LectureTable> lectureTable, MyLecture myLecture, LectureView view)
+        public void RunInterestLeactureEnrollment(List<LectureTable> lectureTable, MyLecture myLecture, LectureView view)
         {
-            view.PrintAllLeactureTable(lectureTable);
+            
+            int selectedNumber;
+            int selectedSearchingType;
+            bool isRunning = true;
+                        
+           
+
+            while (isRunning)
+            {
+                Console.Clear();
+                view.PrintLeactureTable(lectureTable);
+                Console.WriteLine(new string('-', Console.LargestWindowWidth - 4));
+                selectedNumber = view.PrintInterestLeactureMenu();
+                switch (selectedNumber)
+                {
+                    case Constants.My_INTEREST_LECTURES:
+                        view.PrintMyInterestLeactures(myLecture);
+                        break;
+
+                    case Constants.INTEREST_LECTURE_SEARCHING:
+                        selectedSearchingType = view.SeruchLectureTypes();
+                        view.StartSelectedItem(selectedSearchingType,lectureTable,myLecture);
+                        break;
+
+                    case Constants.INTEREST_LECTURE_DELETION:
+                        break;
+
+                    case Constants.INTEREST_LECTURE_ENDING:
+                        isRunning = false;
+                        currentState = Constants.START_MENU;
+                        Console.Clear();
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+        public void RunLeactureEnrollment(List<LectureTable> lectureTable, MyLecture myLecture, LectureView view)
+        {
+
+        }
+                     
+
+        
+        public void RunCurrentTimetable(List<LectureTable> lectureTable, MyLecture myLecture, LectureView view)
+        {
+
         }
     }
 }

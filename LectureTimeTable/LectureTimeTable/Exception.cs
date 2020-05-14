@@ -47,6 +47,20 @@ namespace LectureTimeTable
 
             return inputNumber;        
         }
+         public string InputString(int above, int below) //above 이상 below 이하 만큼 크기의 문자열 입력 실패시 널 반환
+        {
+            string inputString = Constants.WRONG_STRING;
+
+            inputString = Console.ReadLine();
+
+            if (!string.IsNullOrEmpty(inputString) && inputString.Length >= above && inputString.Length <= below)       // above 이상 below 이하의 길이 일때
+            {
+                return inputString;
+            }
+
+            return Constants.WRONG_STRING;
+
+        }
 
     }
 }

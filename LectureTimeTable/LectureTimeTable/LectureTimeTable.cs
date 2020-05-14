@@ -16,27 +16,38 @@ namespace LectureTimeTable
             LectureController lectureController = new LectureController();
             bool isRunning = true;
 
-            lectureController.intializeTable(lectureTable); //lectureTable 에 엑셀에서 불러온 테이블 저장
             Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
-            
+
+            Console.WriteLine("Loding...");        //엑셀을 불러오는동안 로딩
+            lectureController.intializeTable(lectureTable); //lectureTable 에 엑셀에서 불러온 테이블 저장
+            Console.SetCursorPosition(0,0);
+
 
             while (isRunning)
             {
+                Console.Clear();
                 switch (lectureController.Currentstate)
                 {
                     case Constants.START_MENU:
                         lectureController.RunInitailScene(lectureView);
                         break;
+
                     case Constants.INTEREST_COURSE:
-                        lectureController.RunEnrollment(lectureTable, myLecture, lectureView);
+                        lectureController.RunInterestLeactureEnrollment(lectureTable, myLecture, lectureView);
                         break;
+
                     case Constants.ENROLLMENT:
+                        lectureController.RunLeactureEnrollment(lectureTable, myLecture, lectureView);
                         break;
+
                     case Constants.CURRENT_TIMETABLE:
+                        lectureController.RunCurrentTimetable(lectureTable, myLecture, lectureView);
                         break;
+
                     case Constants.PRGRAM_END:
                         isRunning = false;
                         break;
+
                     default:
                         break;
                 }
