@@ -11,7 +11,7 @@ namespace LectureTimeTable
         private int key;                    //primary key
         private string departmentOfOpening;  //개설학과전공
         private int courseNumber;            //학수번호
-        private int dividedClassNumber;        //분반
+        private string dividedClassNumber;        //분반
         private string courseTitle;            //교과목명
         private string classification; //이수구분 (전공필수 등)
         private int year;    //학년
@@ -39,7 +39,7 @@ namespace LectureTimeTable
             set { courseNumber = value; }
         }
 
-        public int DividedClassNumber
+        public string DividedClassNumber
         {
             get { return dividedClassNumber; }
             set { dividedClassNumber = value; }
@@ -89,7 +89,7 @@ namespace LectureTimeTable
             get { return language; }
             set { language = value;}
         }
-        public LectureTable(int key,string departmentOfOpening,int courseNumber, int dividedClassNumber,string courseTitle,string classification,int year, double credit,string dayAndLectureTime,string lectureRoom,string professorName,string language )
+        public LectureTable(int key,string departmentOfOpening,int courseNumber, string dividedClassNumber,string courseTitle,string classification,int year, double credit,string dayAndLectureTime,string lectureRoom,string professorName,string language )
         {
             this.key = key;
             this.departmentOfOpening = departmentOfOpening;

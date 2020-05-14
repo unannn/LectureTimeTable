@@ -21,7 +21,7 @@ namespace LectureTimeTable
         public const int START_NUMBER = 1;
         public const int WRONG_INPUT = -1;
 
-        // 데이터 타입
+        // 데이터 타
         public const int KEY = 1;
         public const int DEPARTMENT = 2;
         public const int COURSE_NUMBER = 3;

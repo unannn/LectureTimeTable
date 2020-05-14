@@ -42,7 +42,8 @@ namespace LectureTimeTable
         {
             PrintTitle(Constants.INITIAL_TITLE_BOARDER);
 
-            for(int line = 0;line < 10; line++)
+            PrintLectureItemName();
+            for (int line = 0;line < 10; line++)
             {
                 PrintOneRowLecture(lectureTable[line]);
             }

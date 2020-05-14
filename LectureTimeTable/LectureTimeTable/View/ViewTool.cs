@@ -14,15 +14,17 @@ namespace LectureTimeTable
 
             Console.Write(whiteSpace);
         }
-        protected void PrintTitle(int leftGap)
+        protected void PrintTitle(int leftGap)           //제목 출력
         {
-            string bar = new string('-', Console.LargestWindowWidth - 1);
+            string bar = new string('-', Console.LargestWindowWidth - 4);
             
 
             Console.WriteLine(bar);
             Console.WriteLine(bar);
+            Console.WriteLine();
             PrintLeftGap(leftGap);
             Console.WriteLine(" EN# 학사정보시스템 ");
+            Console.WriteLine();
             Console.WriteLine(bar);
             Console.WriteLine(bar);
 
@@ -48,14 +50,14 @@ namespace LectureTimeTable
             Console.ReadKey();
         }
 
-        protected void PrintOneRowLecture(LectureTable lecture)
+        protected void PrintOneRowLecture(LectureTable lecture)        //하나의 강의정보 한줄로 출력
         {
-            string bar = new string('-', Console.LargestWindowWidth - 2);
+            string bar = new string('-', Console.LargestWindowWidth - 4);
 
             PrintOneCell(lecture.Key.ToString(), Constants.KEY);
             PrintOneCell(lecture.DepartmentOfOpening, Constants.DEPARTMENT);
             PrintOneCell(lecture.CourseNumber.ToString(), Constants.COURSE_NUMBER);
-            PrintOneCell(lecture.DividedClassNumber.ToString(), Constants.DIVIDED_CLASS_NUMBER);
+            PrintOneCell(lecture.DividedClassNumber, Constants.DIVIDED_CLASS_NUMBER);
             PrintOneCell(lecture.CourseTitle, Constants.COURSE_TITLE);
             PrintOneCell(lecture.Classification, Constants.CLASSIFICATION);
             PrintOneCell(lecture.Year.ToString(), Constants.YEAR);
@@ -64,10 +66,30 @@ namespace LectureTimeTable
             PrintOneCell(lecture.LectureRoom, Constants.LECTURE_ROOM);
             PrintOneCell(lecture.ProfessorName, Constants.PROFESSOR_NAME);
             PrintOneCell(lecture.Language, Constants.LANGUAGE);
-
-
+            
             Console.WriteLine(bar);
 
+        }
+
+        protected void PrintLectureItemName()
+        {
+            string bar = new string('-', Console.LargestWindowWidth - 4);   //강의 항목별 이름 출력
+
+            Console.WriteLine();
+            PrintOneCell("NO", Constants.KEY);
+            PrintOneCell("개설학과전공", Constants.DEPARTMENT);
+            PrintOneCell("학수번호", Constants.COURSE_NUMBER);
+            PrintOneCell("분반", Constants.DIVIDED_CLASS_NUMBER);
+            PrintOneCell("교과목명", Constants.COURSE_TITLE);
+            PrintOneCell("이수구분", Constants.CLASSIFICATION);
+            PrintOneCell("학년", Constants.YEAR);
+            PrintOneCell("학점", Constants.CREDIT);
+            PrintOneCell("요일 및 강의시간", Constants.LECTURE_TIME);
+            PrintOneCell("강의실", Constants.LECTURE_ROOM);
+            PrintOneCell("교수명", Constants.PROFESSOR_NAME);
+            PrintOneCell("강의언어", Constants.LANGUAGE);
+            
+            Console.WriteLine(bar);
         }
 
         private void PrintOneCell(string data,int type)
@@ -76,12 +98,12 @@ namespace LectureTimeTable
             {
                 case Constants.KEY:
                     Console.Write(data);
-                    PrintSpace(5 - Encoding.Default.GetByteCount(data));
+                    PrintSpace(4 - Encoding.Default.GetByteCount(data));
                     Console.Write("|");
                     break;
                 case Constants.DEPARTMENT:
                     Console.Write(data);
-                    PrintSpace(20 - Encoding.Default.GetByteCount(data));
+                    PrintSpace(19 - Encoding.Default.GetByteCount(data));
                     Console.Write("|");
                     break;
                 case Constants.COURSE_NUMBER:
@@ -106,7 +128,7 @@ namespace LectureTimeTable
                     break;
                 case Constants.YEAR:
                     Console.Write(data);
-                    PrintSpace(3 - Encoding.Default.GetByteCount(data));
+                    PrintSpace(4 - Encoding.Default.GetByteCount(data));
                     Console.Write("|");
                     break;
                 case Constants. CREDIT:
@@ -123,11 +145,11 @@ namespace LectureTimeTable
                     if (data != null)
                     {
                         Console.Write(data);
-                        PrintSpace(16 - Encoding.Default.GetByteCount(data));
+                        PrintSpace(15 - Encoding.Default.GetByteCount(data));
                     }
                     else
                     {
-                        PrintSpace(16);
+                        PrintSpace(15);
                     }
                     Console.Write("|");
 
@@ -139,7 +161,7 @@ namespace LectureTimeTable
                     break;
                 case Constants.LANGUAGE:
                     Console.Write(data);
-                    PrintSpace(9 - Encoding.Default.GetByteCount(data));
+                    PrintSpace(8 - Encoding.Default.GetByteCount(data));
                     Console.Write("|");
                     break;
                 default:
