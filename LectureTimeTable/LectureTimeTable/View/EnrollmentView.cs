@@ -43,7 +43,7 @@ namespace LectureTimeTable
             return selectedItem;
         }
 
-        public int PrintLeactures(List<LectureTable> lectures)   //내가 관심과목으로 담은 강의들 리스트 출력
+        public int PrintLeactures(List<LectureTable> lectures, MyLecture myLecture)   //내가 관심과목으로 담은 강의들 리스트 출력
         {
             int rowNumber = 0;
             Console.SetCursorPosition(0, Constants.UNDER_TITLE_Y);
@@ -55,11 +55,21 @@ namespace LectureTimeTable
                     PrintOneRowLecture(row);
                     rowNumber++;
                 }
+                Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+                PrintBlankTable(17);
+
                 Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Constants.UNDER_TABLE_Y + 3);
+
+                if (myLecture.myInterestCourse != lectures)Console.WriteLine("현재 신청한 학점 : {0}/24 ", myLecture.MyEnrollmentCredits);
+                else Console.WriteLine("현재 신청한 학점 : {0}/24 ", myLecture.MyInterestCredits);
+
                 PrintFailMessage("", 0);
             }
             else
             {
+                Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+                PrintBlankTable(17);
+                Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y + 3);
 
                 PrintFailMessage("강의가 없습니다", 0);
                 Console.SetCursorPosition(0, Constants.UNDER_TITLE_Y);
@@ -131,8 +141,8 @@ namespace LectureTimeTable
                     rowNumber = SearchLecture(lectureTable, searchWord, Constants.PROFESSOR_NAME);
                     break;
                 case 6:   //관심과목담기한 강의
-                    rowNumber = PrintLeactures(myLecture.myInterestCourse);
-                    if(rowNumber != 0)EnrollmentInInterest(myLecture);
+                    rowNumber = PrintLeactures(myLecture.myInterestCourse,myLecture);
+                    if(rowNumber != 0)EnrollmentInInterest(myLecture,lectureTable);
                     return;
                 case 7:    //종료
                     return;
@@ -152,8 +162,11 @@ namespace LectureTimeTable
                 Console.Write("수강신청할 강의 NO. 입력 : ");
                 addLectureNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, lectureTable.Count);
 
+
+
                 if (addLectureNumber != Constants.WRONG_INPUT)
                 {
+                    addLectureNumber -= myLecture.myInterestCourse.Count;
                     if (myLecture.MyEnrollmentCredits + lectureTable[addLectureNumber - 1].Credit <= 21)   //수강신청한 학점이 21 이하일 때만
                     {
                         for (int row = 0; row < myLecture.mySucessfulCourse.Count; row++)
@@ -164,7 +177,6 @@ namespace LectureTimeTable
                                 return;
                             }
                         }
-
                         myLecture.mySucessfulCourse.Add(lectureTable[addLectureNumber - 1]);
                         myLecture.MyEnrollmentCredits += lectureTable[addLectureNumber - 1].Credit;
                         PrintFailMessage("수강신청을 완료 했습니다.", 0);
@@ -184,7 +196,7 @@ namespace LectureTimeTable
         public void DeleteEnrollmentLecture(MyLecture myLecture)
         {
             int inputNumber;
-            PrintLeactures(myLecture.mySucessfulCourse);
+            PrintLeactures(myLecture.mySucessfulCourse, myLecture);
             Console.SetCursorPosition(0, Console.CursorTop - 1);
             PrintBlankTable(1);
 
@@ -193,11 +205,13 @@ namespace LectureTimeTable
 
             if (inputNumber != Constants.WRONG_INPUT)
             {
-                for (int row = 0; row < myLecture.myInterestCourse.Count; row++)
+                for (int row = 0; row < myLecture.mySucessfulCourse.Count; row++)
                 {
-                    if (inputNumber == myLecture.myInterestCourse[row].Key)
+                    if (inputNumber == myLecture.mySucessfulCourse[row].Key)
                     {
-                        myLecture.myInterestCourse.RemoveAt(row);
+                        myLecture.MyEnrollmentCredits -= myLecture.mySucessfulCourse[row].Credit;
+                        myLecture.myInterestCourse.Add(myLecture.mySucessfulCourse[row]);
+                        myLecture.mySucessfulCourse.RemoveAt(row);
                         PrintFailMessage("삭제되었습니다.", 0);
                         return;
                     }

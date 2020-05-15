@@ -289,15 +289,22 @@ namespace LectureTimeTable
             return rowNumber;
         }
 
-        protected void EnrollmentInInterest(MyLecture myLecture)  //관심과목에서 수강신청 메소드
+        protected void EnrollmentInInterest(MyLecture myLecture,List<LectureTable> lectureTable)  //관심과목에서 수강신청 메소드
         {
             int addLectureNumber;
+
+
+            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+            PrintBlankTable(17);
+            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+            Console.WriteLine();
 
             Console.Write("수강신청할 강의 NO. 입력 : ");
             addLectureNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, 160);
 
             if (addLectureNumber != Constants.WRONG_INPUT)
             {
+                //addLectureNumber -= myLecture.myInterestCourse.Count;
                 if (myLecture.MyEnrollmentCredits <= 21)   //수강신청한 학점이 21 이하일 때만
                 {
                     int row;
@@ -321,9 +328,10 @@ namespace LectureTimeTable
                             return;
                         }
                     }
-
+                    myLecture.MyInterestCredits -= lectureTable[addLectureNumber - 1].Credit;
                     myLecture.mySucessfulCourse.Add(myLecture.myInterestCourse[row]);   //수강신청 성공
                     myLecture.MyEnrollmentCredits += myLecture.myInterestCourse[row].Credit;
+                    myLecture.myInterestCourse.RemoveAt(row);
 
                     PrintFailMessage("수강신청을 완료 했습니다.", 0);
                 }

@@ -91,7 +91,7 @@ namespace LectureTimeTable
                         break;
 
                     case Constants.INTEREST_LECTURE_DELETION:
-                        interestView.DeleteInterestLecture(myLecture);
+                        interestView.DeleteInterestLecture(myLecture,lectureTable);
                         break;
 
                     case Constants.INTEREST_LECTURE_ENDING:
@@ -125,7 +125,7 @@ namespace LectureTimeTable
                 switch (selectedNumber)
                 {
                     case Constants.My_ENROLLMENT_LECTURES:
-                        enrollmentView.PrintLeactures(myLecture.mySucessfulCourse);
+                        enrollmentView.PrintLeactures(myLecture.mySucessfulCourse,myLecture);
                         break;
 
                     case Constants.START_ENROLLMENT:

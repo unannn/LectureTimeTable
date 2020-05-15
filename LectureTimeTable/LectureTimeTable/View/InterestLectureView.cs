@@ -43,6 +43,7 @@ namespace LectureTimeTable
 
             return selectedItem;
         }
+
         public void PrintMyInterestLeactures(MyLecture myLecture)   //내가 관심과목으로 담은 강의들 리스트 출력
         {
             Console.SetCursorPosition(0, Constants.UNDER_TITLE_Y);
@@ -54,6 +55,7 @@ namespace LectureTimeTable
                     PrintOneRowLecture(row);
                 }
                 Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Constants.UNDER_TABLE_Y + 3);
+                Console.WriteLine("현재 신청한 학점 : {0}/24 ", myLecture.MyInterestCredits);
                 PrintFailMessage("", 0);
             }
             else
@@ -93,6 +95,8 @@ namespace LectureTimeTable
             int searchNumber;
             int addLectureNumber;
             int rowNumber = 0;
+            int lectureTableIndex;
+
             switch (selectedItem)
             {
                 case 1:     //개설학과전공
@@ -141,23 +145,35 @@ namespace LectureTimeTable
             if (selectedItem != 6)
             {
                 Console.Write("관심과목에 담을 NO. 입력 : ");
-                addLectureNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, lectureTable.Count);
+                addLectureNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, 160);
+                for(lectureTableIndex = 0; lectureTableIndex < 160 - myLecture.myInterestCourse.Count; lectureTableIndex++)
+                {
+                    if (lectureTable[lectureTableIndex].Key == addLectureNumber) break;
+                }
+
+                if (lectureTableIndex == 160 - myLecture.myInterestCourse.Count)
+                {
+                    PrintFailMessage("해당 강의가 없습니다.",0);
+                    return;
+                }
 
                 if (addLectureNumber != Constants.WRONG_INPUT)
                 {
-                    if (myLecture.MyInterestCredits + lectureTable[addLectureNumber - 1].Credit <= 24)   //현재 관심과목에담은 학점이 24 이하일 때만
+                    if (myLecture.MyInterestCredits + lectureTable[lectureTableIndex].Credit <= 24)   //현재 관심과목에담은 학점이 24 이하일 때만
                     {
                         for (int row = 0; row < myLecture.myInterestCourse.Count; row++)
                         {
-                            if (myLecture.myInterestCourse[row].CourseNumber == lectureTable[addLectureNumber - 1].CourseNumber)   //학수번호가 같을 경우
+                            if (myLecture.myInterestCourse[row].CourseNumber == lectureTable[lectureTableIndex].CourseNumber)   //학수번호가 같을 경우
                             {
                                 PrintFailMessage("이미 추가된 강의입니다.", 0);
                                 return;
                             }
                         }
 
-                        myLecture.myInterestCourse.Add(lectureTable[addLectureNumber - 1]);
-                        myLecture.MyInterestCredits += lectureTable[addLectureNumber - 1].Credit;
+                        myLecture.myInterestCourse.Add(lectureTable[lectureTableIndex]);
+                        myLecture.MyInterestCredits += lectureTable[lectureTableIndex].Credit;
+                        lectureTable.RemoveAt(lectureTableIndex);
+
                         PrintFailMessage("관심과목에 추가되었습니다.", 0);
                     }
                     else
@@ -172,7 +188,7 @@ namespace LectureTimeTable
             }
         }
 
-        public void DeleteInterestLecture(MyLecture myLecture)
+        public void DeleteInterestLecture(MyLecture myLecture, List<LectureTable> lectureTable)
         {
             int inputNumber;
             PrintMyInterestLeactures(myLecture);
@@ -188,7 +204,10 @@ namespace LectureTimeTable
                 {
                     if (inputNumber == myLecture.myInterestCourse[row].Key)
                     {
+                        myLecture.MyInterestCredits -= myLecture.myInterestCourse[row].Credit; 
+                        lectureTable.Add(myLecture.myInterestCourse[row]);
                         myLecture.myInterestCourse.RemoveAt(row);
+
                         PrintFailMessage("삭제되었습니다.", 0);
                         return;
                     }
