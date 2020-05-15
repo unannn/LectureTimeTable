@@ -13,7 +13,7 @@ namespace LectureTimeTable
         public const int INTEREST_COURSE = 1;
         public const int ENROLLMENT = 2;
         public const int CURRENT_TIMETABLE = 3;
-        public const int PRGRAM_END = 4;
+        public const int PROGRAM_END = 4;
         //UI정렬 관련
         public const int INITIAL_TITLE_BOARDER = 90;
 

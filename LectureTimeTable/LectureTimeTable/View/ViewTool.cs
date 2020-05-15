@@ -14,7 +14,8 @@ namespace LectureTimeTable
 
             Console.Write(whiteSpace);
         }
-        protected void PrintTitle(int leftGap,string subtitle)           //제목 출력
+
+        public void PrintTitle(int leftGap,string subtitle)           //제목 출력
         {
             string bar = new string('-', Console.LargestWindowWidth - 4);
             

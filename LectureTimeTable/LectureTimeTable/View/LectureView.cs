@@ -40,18 +40,12 @@ namespace LectureTimeTable
 
         public void PrintLeactureTable(List<LectureTable> lectureTable)   //매개변수로 들어온 강의 리스트를 출력해줌
         {
-            Console.Clear();
-            PrintTitle(Constants.INITIAL_TITLE_BOARDER, " 관심과목 담기 ");   //타이틀 출력
+            //PrintTitle(Constants.INITIAL_TITLE_BOARDER, " 관심과목 담기 ");   //타이틀 출력
 
             PrintLectureItemName();
             Console.SetCursorPosition(0, Constants.UNDER_TITLE_Y);
             PrintBlankTable(23);
 
-            //Console.SetCursorPosition(0, 11);
-            //for (int line = 0; line < 10; line++)
-            //{
-            //    PrintOneRowLecture(lectureTable[line]);
-            //}
         }
 
         public int PrintInterestLeactureMenu()
@@ -134,6 +128,7 @@ namespace LectureTimeTable
                 {
                     PrintOneRowLecture(row);
                 }
+                Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Constants.UNDER_TABLE_Y + 3);
                 PrintFailMessage("", 0);
             }
             else
@@ -183,13 +178,16 @@ namespace LectureTimeTable
 
                 case 6:    //종료
                     return;
-            }
+            }            
 
             if(rowNumber == 0)
             {
                 PrintFailMessage("검색한 강의를 찾을 수 없습니다.", 0);
                 return;
             }
+
+            if (rowNumber < 13) Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Constants.UNDER_TABLE_Y + 3);
+            else Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Console.CursorTop + 3);
 
             if (selectedItem != 6)
             {
@@ -223,6 +221,33 @@ namespace LectureTimeTable
                     PrintFailMessage("잘못된 입력입니다.", 0);
                 }
             }
+        }
+
+        public void DeleteInterestLecture(MyLecture myLecture)
+        {
+            int inputNumber;
+            PrintMyInterestLeactures(myLecture);
+            Console.SetCursorPosition(0, Console.CursorTop -1);
+            PrintBlankTable(1);
+
+            Console.Write("삭제할 과목의 NO 입력 : ");
+            inputNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, 160);
+            
+            if(inputNumber != Constants.WRONG_INPUT)
+            {
+                for (int row = 0; row < myLecture.myInterestCourse.Count; row++)
+                {
+                    if (inputNumber == myLecture.myInterestCourse[row].Key)
+                    {
+                        myLecture.myInterestCourse.RemoveAt(row);
+                        PrintFailMessage("삭제되었습니다.", 0);
+                        return;
+                    }
+                }
+            }
+
+            PrintFailMessage("해당 강의가 없습니다.", 0);
+
 
         }
     }

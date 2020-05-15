@@ -69,13 +69,12 @@ namespace LectureTimeTable
             
             int selectedNumber;
             int selectedSearchingType;
-            bool isRunning = true;
-                        
-           
+            bool isRunning = true;                                 
 
             while (isRunning)
             {
                 Console.Clear();
+                view.PrintTitle(Constants.INITIAL_TITLE_BOARDER, " 관심과목 담기 ");
                 view.PrintLeactureTable(lectureTable);
                 Console.WriteLine(new string('-', Console.LargestWindowWidth - 4));
                 selectedNumber = view.PrintInterestLeactureMenu();
@@ -91,6 +90,7 @@ namespace LectureTimeTable
                         break;
 
                     case Constants.INTEREST_LECTURE_DELETION:
+                        view.DeleteInterestLecture(myLecture);
                         break;
 
                     case Constants.INTEREST_LECTURE_ENDING:
@@ -106,7 +106,42 @@ namespace LectureTimeTable
         }
         public void RunLeactureEnrollment(List<LectureTable> lectureTable, MyLecture myLecture, LectureView view)
         {
+            int selectedNumber;
+            int selectedSearchingType;
+            bool isRunning = true;
 
+            while (isRunning)
+            {
+                Console.Clear();
+                view.PrintTitle(Constants.INITIAL_TITLE_BOARDER, " 수강 신청 ");
+                view.PrintLeactureTable(lectureTable);
+                Console.WriteLine(new string('-', Console.LargestWindowWidth - 4));
+                selectedNumber = view.PrintInterestLeactureMenu();
+                switch (selectedNumber)
+                {
+                    case Constants.My_INTEREST_LECTURES:
+                        view.PrintMyInterestLeactures(myLecture);
+                        break;
+
+                    case Constants.INTEREST_LECTURE_SEARCHING:
+                        selectedSearchingType = view.SeruchLectureTypes();
+                        view.StartSelectedItem(selectedSearchingType, lectureTable, myLecture);
+                        break;
+
+                    case Constants.INTEREST_LECTURE_DELETION:
+                        view.DeleteInterestLecture(myLecture);
+                        break;
+
+                    case Constants.INTEREST_LECTURE_ENDING:
+                        isRunning = false;
+                        currentState = Constants.START_MENU;
+                        Console.Clear();
+                        break;
+
+                    default:
+                        break;
+                }
+            }
         }
                      
 

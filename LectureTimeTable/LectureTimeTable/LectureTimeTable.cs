@@ -28,23 +28,23 @@ namespace LectureTimeTable
                 Console.Clear();
                 switch (lectureController.Currentstate)
                 {
-                    case Constants.START_MENU:
+                    case Constants.START_MENU:           //초기화면
                         lectureController.RunInitailScene(lectureView);
                         break;
 
-                    case Constants.INTEREST_COURSE:
+                    case Constants.INTEREST_COURSE:      //관심과목 담기
                         lectureController.RunInterestLeactureEnrollment(lectureTable, myLecture, lectureView);
                         break;
 
-                    case Constants.ENROLLMENT:
+                    case Constants.ENROLLMENT:          //수강 신청
                         lectureController.RunLeactureEnrollment(lectureTable, myLecture, lectureView);
                         break;
 
-                    case Constants.CURRENT_TIMETABLE:
+                    case Constants.CURRENT_TIMETABLE:      //수강 신청한 시간표
                         lectureController.RunCurrentTimetable(lectureTable, myLecture, lectureView);
                         break;
 
-                    case Constants.PRGRAM_END:
+                    case Constants.PROGRAM_END:
                         isRunning = false;
                         break;
 
