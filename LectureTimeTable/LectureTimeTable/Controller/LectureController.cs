@@ -75,7 +75,8 @@ namespace LectureTimeTable
             {
                 Console.Clear();
                 view.PrintTitle(Constants.INITIAL_TITLE_BOARDER, " 관심과목 담기 ");
-                view.PrintLeactureTable(lectureTable);
+                view.PrintinitialLeactureTable(); //빈 강의테이블 출력
+
                 Console.WriteLine(new string('-', Console.LargestWindowWidth - 4));
                 selectedNumber = view.PrintInterestLeactureMenu();
                 switch (selectedNumber)
@@ -113,10 +114,12 @@ namespace LectureTimeTable
             while (isRunning)
             {
                 Console.Clear();
-                view.PrintTitle(Constants.INITIAL_TITLE_BOARDER, " 수강 신청 ");
-                view.PrintLeactureTable(lectureTable);
+                view.PrintTitle(Constants.INITIAL_TITLE_BOARDER, " 수강 신청 "); //부제출력
+                view.PrintinitialLeactureTable(); //빈 강의테이블 출력
+
                 Console.WriteLine(new string('-', Console.LargestWindowWidth - 4));
-                selectedNumber = view.PrintInterestLeactureMenu();
+
+                selectedNumber = view.PrintEnrollmentMenu();
                 switch (selectedNumber)
                 {
                     case Constants.My_INTEREST_LECTURES:

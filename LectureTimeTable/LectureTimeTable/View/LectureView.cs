@@ -38,14 +38,10 @@ namespace LectureTimeTable
             return selectedItem;
         }
 
-        public void PrintLeactureTable(List<LectureTable> lectureTable)   //매개변수로 들어온 강의 리스트를 출력해줌
+        public void PrintinitialLeactureTable()   //초기 빈 테이블 출력
         {
-            //PrintTitle(Constants.INITIAL_TITLE_BOARDER, " 관심과목 담기 ");   //타이틀 출력
-
             PrintLectureItemName();
-            Console.SetCursorPosition(0, Constants.UNDER_TITLE_Y);
             PrintBlankTable(23);
-
         }
 
         public int PrintInterestLeactureMenu()
@@ -86,7 +82,42 @@ namespace LectureTimeTable
 
             return selectedItem;
         }
-        
+
+        public int PrintEnrollmentMenu()
+        {
+            int selectedItem = 0;
+            
+            List<string> menu = new List<string>()
+            {
+                "1. 내가 신청한 강의",
+                "2. 수강 신청",                
+                "3, 신청한 강의 삭제",
+                "4. 수강신청 담기 종료"
+            };
+
+            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+            PrintBlankTable(14);
+            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+            Console.WriteLine();
+
+            PrintMenu(menu, 0);
+
+            Console.Write(" 메뉴 선택 : ");
+
+            selectedItem = Exception.Instance.InputNumber(Constants.START_NUMBER, menu.Count);
+
+            if (selectedItem == Constants.WRONG_INPUT)
+            {
+                PrintFailMessage("다시 입력해 주세요.", Constants.INITIAL_TITLE_BOARDER);
+            }
+
+            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+            PrintBlankTable(10);
+            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+
+            return selectedItem;
+        }
+
         public void PrintInputGuide(List<string> guideList)
         {
             foreach(string guide in guideList)
