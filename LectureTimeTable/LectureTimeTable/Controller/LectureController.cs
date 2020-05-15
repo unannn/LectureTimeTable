@@ -64,7 +64,7 @@ namespace LectureTimeTable
             }          
         }
 
-        public void RunInterestLeactureEnrollment(List<LectureTable> lectureTable, MyLecture myLecture, LectureView view)
+        public void RunInterestLeactureEnrollment(List<LectureTable> lectureTable, MyLecture myLecture, LectureView view,InterestLectureView interestView)
         {
             
             int selectedNumber;
@@ -78,20 +78,20 @@ namespace LectureTimeTable
                 view.PrintinitialLeactureTable(); //빈 강의테이블 출력
 
                 Console.WriteLine(new string('-', Console.LargestWindowWidth - 4));
-                selectedNumber = view.PrintInterestLeactureMenu();
+                selectedNumber = interestView.PrintInterestLeactureMenu();
                 switch (selectedNumber)
                 {
                     case Constants.My_INTEREST_LECTURES:
-                        view.PrintMyInterestLeactures(myLecture);
+                        interestView.PrintMyInterestLeactures(myLecture);
                         break;
 
                     case Constants.INTEREST_LECTURE_SEARCHING:
                         selectedSearchingType = view.SeruchLectureTypes();
-                        view.StartSelectedItem(selectedSearchingType,lectureTable,myLecture);
+                        interestView.StartSelectedItem(selectedSearchingType,lectureTable,myLecture);
                         break;
 
                     case Constants.INTEREST_LECTURE_DELETION:
-                        view.DeleteInterestLecture(myLecture);
+                        interestView.DeleteInterestLecture(myLecture);
                         break;
 
                     case Constants.INTEREST_LECTURE_ENDING:
@@ -105,7 +105,8 @@ namespace LectureTimeTable
                 }
             }
         }
-        public void RunLeactureEnrollment(List<LectureTable> lectureTable, MyLecture myLecture, LectureView view)
+
+        public void RunLeactureEnrollment(List<LectureTable> lectureTable, MyLecture myLecture, LectureView view, EnrollmentView enrollmentView)
         {
             int selectedNumber;
             int selectedSearchingType;
@@ -119,20 +120,21 @@ namespace LectureTimeTable
 
                 Console.WriteLine(new string('-', Console.LargestWindowWidth - 4));
 
-                selectedNumber = view.PrintEnrollmentMenu();
+                selectedNumber = enrollmentView.PrintEnrollmentMenu();
+
                 switch (selectedNumber)
                 {
                     case Constants.My_INTEREST_LECTURES:
-                        view.PrintMyInterestLeactures(myLecture);
+                        enrollmentView.PrintMyEnrollmentLeactures(myLecture);
                         break;
 
                     case Constants.INTEREST_LECTURE_SEARCHING:
                         selectedSearchingType = view.SeruchLectureTypes();
-                        view.StartSelectedItem(selectedSearchingType, lectureTable, myLecture);
+                        enrollmentView.StartEnrollment(selectedSearchingType, lectureTable, myLecture);
                         break;
 
                     case Constants.INTEREST_LECTURE_DELETION:
-                        view.DeleteInterestLecture(myLecture);
+                        enrollmentView.DeleteEnrollmentLecture(myLecture);
                         break;
 
                     case Constants.INTEREST_LECTURE_ENDING:
@@ -145,8 +147,7 @@ namespace LectureTimeTable
                         break;
                 }
             }
-        }
-                     
+        }                    
 
         
         public void RunCurrentTimetable(List<LectureTable> lectureTable, MyLecture myLecture, LectureView view)

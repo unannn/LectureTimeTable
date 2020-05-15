@@ -57,6 +57,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Model\LectureTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\EnrollmentView.cs" />
+    <Compile Include="View\InterestLectureView.cs" />
     <Compile Include="View\LectureView.cs" />
     <Compile Include="View\ViewTool.cs" />
   </ItemGroup>

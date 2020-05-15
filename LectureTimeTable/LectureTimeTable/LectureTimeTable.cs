@@ -12,7 +12,10 @@ namespace LectureTimeTable
         {
             List<LectureTable> lectureTable = new List<LectureTable>();
             LectureView lectureView = new LectureView();
+            InterestLectureView interestView = new InterestLectureView();
+            EnrollmentView enrollmentView = new EnrollmentView();
             MyLecture  myLecture = new MyLecture();
+           
             LectureController lectureController = new LectureController();
             bool isRunning = true;
 
@@ -33,11 +36,11 @@ namespace LectureTimeTable
                         break;
 
                     case Constants.INTEREST_COURSE:      //관심과목 담기
-                        lectureController.RunInterestLeactureEnrollment(lectureTable, myLecture, lectureView);
+                        lectureController.RunInterestLeactureEnrollment(lectureTable, myLecture, lectureView, interestView);
                         break;
 
                     case Constants.ENROLLMENT:          //수강 신청
-                        lectureController.RunLeactureEnrollment(lectureTable, myLecture, lectureView);
+                        lectureController.RunLeactureEnrollment(lectureTable, myLecture, lectureView, enrollmentView);
                         break;
 
                     case Constants.CURRENT_TIMETABLE:      //수강 신청한 시간표
