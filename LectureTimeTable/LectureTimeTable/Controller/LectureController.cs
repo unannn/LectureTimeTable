@@ -125,7 +125,7 @@ namespace LectureTimeTable
                 switch (selectedNumber)
                 {
                     case Constants.My_ENROLLMENT_LECTURES:
-                        enrollmentView.PrintMyEnrollmentLeactures(myLecture);
+                        enrollmentView.PrintLeactures(myLecture.mySucessfulCourse);
                         break;
 
                     case Constants.START_ENROLLMENT:

@@ -145,7 +145,7 @@ namespace LectureTimeTable
 
                 if (addLectureNumber != Constants.WRONG_INPUT)
                 {
-                    if (myLecture.MyCurrentCredits + lectureTable[addLectureNumber - 1].Credit <= 24)   //현재 관심과목에담은 학점이 24 이하일 때만
+                    if (myLecture.MyInterestCredits + lectureTable[addLectureNumber - 1].Credit <= 24)   //현재 관심과목에담은 학점이 24 이하일 때만
                     {
                         for (int row = 0; row < myLecture.myInterestCourse.Count; row++)
                         {
@@ -157,7 +157,7 @@ namespace LectureTimeTable
                         }
 
                         myLecture.myInterestCourse.Add(lectureTable[addLectureNumber - 1]);
-                        myLecture.MyCurrentCredits += lectureTable[addLectureNumber - 1].Credit;
+                        myLecture.MyInterestCredits += lectureTable[addLectureNumber - 1].Credit;
                         PrintFailMessage("관심과목에 추가되었습니다.", 0);
                     }
                     else

@@ -11,19 +11,27 @@ namespace LectureTimeTable
         public List<LectureTable> myInterestCourse;
         public List<LectureTable> mySucessfulCourse;
 
-        private double myCurrentCredits;
+        private double myInterestCredits;
+        private double myEnrollmentCredits;
 
-        public double MyCurrentCredits
+        public double MyInterestCredits
         {
-            get { return myCurrentCredits; }
-            set { myCurrentCredits = value; }
+            get { return myInterestCredits; }
+            set { myInterestCredits = value; }
+        }
+
+        public double MyEnrollmentCredits
+        {
+            get { return myEnrollmentCredits; }
+            set { myEnrollmentCredits = value; }
         }
 
         public MyLecture()
         {
             myInterestCourse = new List<LectureTable>();
             mySucessfulCourse = new List<LectureTable>();
-            myCurrentCredits = 0;
+            myInterestCredits = 0;
+            myEnrollmentCredits = 0;
         }
 
     }
