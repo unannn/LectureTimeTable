@@ -20,6 +20,7 @@ namespace LectureTimeTable
         private string lectureRoom;             //강의실
         private string professorName;          //교수명
         private string language;              //언어
+        private string[] SeparatedTime;
 
         public int Key
         {
@@ -103,6 +104,16 @@ namespace LectureTimeTable
             this.lectureRoom = lectureRoom;
             this.professorName = professorName;
             this.language = language;
-        }       
+
+            SeparatedTime = dayAndLectureTime.Split(' ');
+            if (SeparatedTime.Length == 5)
+            {
+                SeparatedTime[2] = SeparatedTime[2].Substring(0, 11);
+            }
+            else if (SeparatedTime.Length == 4)
+            {
+                SeparatedTime[1] = SeparatedTime[1].Substring(0, 11);
+            }
+        }
     }
 }

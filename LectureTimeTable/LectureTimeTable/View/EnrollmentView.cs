@@ -193,7 +193,7 @@ namespace LectureTimeTable
             }
         }
 
-        public void DeleteEnrollmentLecture(MyLecture myLecture)
+        public void DeleteEnrollmentLecture(MyLecture myLecture)  //삭제하면 관심과목이 아닐때도 관심과목으로 복구되는것 수정할것 
         {
             int inputNumber;
             PrintLeactures(myLecture.mySucessfulCourse, myLecture);
