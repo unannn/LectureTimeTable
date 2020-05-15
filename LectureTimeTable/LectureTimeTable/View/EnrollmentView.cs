@@ -60,8 +60,8 @@ namespace LectureTimeTable
 
                 Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Constants.UNDER_TABLE_Y + 3);
 
-                if (myLecture.myInterestCourse != lectures)Console.WriteLine("현재 신청한 학점 : {0}/24 ", myLecture.MyEnrollmentCredits);
-                else Console.WriteLine("현재 신청한 학점 : {0}/24 ", myLecture.MyInterestCredits);
+                if (myLecture.myInterestCourse != lectures)Console.WriteLine("현재 신청한 학점 : {0}/21 ", myLecture.MyEnrollmentCredits);
+                else Console.WriteLine("현재 신청한 학점 : {0}/21 ", myLecture.MyInterestCredits);
 
                 PrintFailMessage("", 0);
             }
