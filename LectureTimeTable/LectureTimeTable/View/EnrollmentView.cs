@@ -125,6 +125,7 @@ namespace LectureTimeTable
                     searchWord = Exception.Instance.InputString(1, 10);
                     rowNumber = SearchLecture(lectureTable, searchWord, Constants.PROFESSOR_NAME);
                     break;
+                case 6:   //관심과목담기한 강의
 
                 case 7:    //종료
                     return;
@@ -141,12 +142,12 @@ namespace LectureTimeTable
 
             if (selectedItem != 6)
             {
-                Console.Write("관심과목에 담을 NO. 입력 : ");
+                Console.Write("수강신청할 강의 NO. 입력 : ");
                 addLectureNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, lectureTable.Count);
 
                 if (addLectureNumber != Constants.WRONG_INPUT)
                 {
-                    if (myLecture.MyCurrentCredits + lectureTable[addLectureNumber - 1].Credit <= 24)   //현재 관심과목에담은 학점이 24 이하일 때만
+                    if (myLecture.MyCurrentCredits + lectureTable[addLectureNumber - 1].Credit <= 21)   //수강신청한 학점이 21 이하일 때만
                     {
                         for (int row = 0; row < myLecture.myInterestCourse.Count; row++)
                         {
@@ -159,7 +160,7 @@ namespace LectureTimeTable
 
                         myLecture.myInterestCourse.Add(lectureTable[addLectureNumber - 1]);
                         myLecture.MyCurrentCredits += lectureTable[addLectureNumber - 1].Credit;
-                        PrintFailMessage("관심과목에 추가되었습니다.", 0);
+                        PrintFailMessage("수강신청을 완료 했습니다.", 0);
                     }
                     else
                     {

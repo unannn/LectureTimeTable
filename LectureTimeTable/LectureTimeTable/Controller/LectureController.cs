@@ -124,20 +124,20 @@ namespace LectureTimeTable
 
                 switch (selectedNumber)
                 {
-                    case Constants.My_INTEREST_LECTURES:
+                    case Constants.My_ENROLLMENT_LECTURES:
                         enrollmentView.PrintMyEnrollmentLeactures(myLecture);
                         break;
 
-                    case Constants.INTEREST_LECTURE_SEARCHING:
+                    case Constants.START_ENROLLMENT:
                         selectedSearchingType = enrollmentView.SeruchLectureTypes();
                         enrollmentView.StartEnrollment(selectedSearchingType, lectureTable, myLecture);
                         break;
 
-                    case Constants.INTEREST_LECTURE_DELETION:
+                    case Constants.ENROLLMENT_LECTURE_DELETION:
                         enrollmentView.DeleteEnrollmentLecture(myLecture);
                         break;
 
-                    case Constants.INTEREST_LECTURE_ENDING:
+                    case Constants.ENROLLMENT_ENDING:
                         isRunning = false;
                         currentState = Constants.START_MENU;
                         Console.Clear();
