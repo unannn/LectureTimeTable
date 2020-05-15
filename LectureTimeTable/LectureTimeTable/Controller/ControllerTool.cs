@@ -6,12 +6,5 @@ using System.Threading.Tasks;
 
 namespace LectureTimeTable
 {
-    class ControllerTool
-    {
-        
-        protected void SerchLetures()
-        {
-            
-        }
-    }
+    
 }

@@ -21,7 +21,7 @@ namespace LectureTimeTable
         private string professorName;          //교수명
         private string language;              //언어
         private string[] separatedTime;
-        private int[,] timeTable;
+        public int[,] timeTable;
 
         public int Key
         {

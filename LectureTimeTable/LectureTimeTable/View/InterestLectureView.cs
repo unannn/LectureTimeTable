@@ -146,7 +146,8 @@ namespace LectureTimeTable
             {
                 Console.Write("관심과목에 담을 NO. 입력 : ");
                 addLectureNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, 160);
-                for(lectureTableIndex = 0; lectureTableIndex < 160 - myLecture.myInterestCourse.Count; lectureTableIndex++)
+
+                for (lectureTableIndex = 0; lectureTableIndex < 160 - myLecture.myInterestCourse.Count; lectureTableIndex++)
                 {
                     if (lectureTable[lectureTableIndex].Key == addLectureNumber) break;
                 }

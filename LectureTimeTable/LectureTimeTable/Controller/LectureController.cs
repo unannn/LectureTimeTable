@@ -7,7 +7,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace LectureTimeTable
 {
-    class LectureController:ControllerTool
+    class LectureController
     {
         private int currentState;
         private int childCurrentState;
@@ -152,7 +152,11 @@ namespace LectureTimeTable
         
         public void RunCurrentTimetable(List<LectureTable> lectureTable, MyLecture myLecture, LectureView view)
         {
-            
+            Console.Clear();
+            view.PrintTitle(Constants.INITIAL_TITLE_BOARDER, " 내 시간표 "); //부제출력
+
+            view.PrintTimeTable(myLecture.mySucessfulCourse);
+            Currentstate = Constants.START_MENU;
         }
     }
 }

@@ -15,10 +15,10 @@ namespace LectureTimeTable
             Console.Write(whiteSpace);
         }
 
-        public void PrintTitle(int leftGap,string subtitle)           //제목 출력
+        public void PrintTitle(int leftGap, string subtitle)           //제목 출력
         {
             string bar = new string('-', Console.LargestWindowWidth - 4);
-            
+
 
             Console.WriteLine(bar);
             Console.WriteLine(bar);
@@ -43,7 +43,7 @@ namespace LectureTimeTable
             }
         }
 
-        protected void PrintFailMessage(string message,int leftGap)
+        protected void PrintFailMessage(string message, int leftGap)
         {
             PrintLeftGap(Constants.INITIAL_TITLE_BOARDER);
             Console.WriteLine(message);
@@ -68,7 +68,7 @@ namespace LectureTimeTable
             PrintOneCell(lecture.LectureRoom, Constants.LECTURE_ROOM);
             PrintOneCell(lecture.ProfessorName, Constants.PROFESSOR_NAME);
             PrintOneCell(lecture.Language, Constants.LANGUAGE);
-            
+
             Console.WriteLine(bar);
 
         }
@@ -76,7 +76,7 @@ namespace LectureTimeTable
         protected void PrintLectureItemName()
         {
             string bar = new string('-', Console.LargestWindowWidth - 4);   //강의 항목별 이름 출력
-                       
+
 
             PrintOneCell("NO", Constants.KEY);
             PrintOneCell("개설학과전공", Constants.DEPARTMENT);
@@ -107,7 +107,7 @@ namespace LectureTimeTable
             Console.WriteLine(bar);
         }
 
-        private void PrintOneCell(string data,int type)         //type 으로 들어온 데이터 타입에 따라 강의 정보에서 한 요소를 출력함
+        private void PrintOneCell(string data, int type)         //type 으로 들어온 데이터 타입에 따라 강의 정보에서 한 요소를 출력함
         {
             switch (type)
             {
@@ -153,7 +153,7 @@ namespace LectureTimeTable
                     Console.Write("|");
                     break;
 
-                case Constants. CREDIT:
+                case Constants.CREDIT:
                     Console.Write(data);
                     PrintSpace(5 - Encoding.Default.GetByteCount(data));
                     Console.Write("|");
@@ -161,12 +161,12 @@ namespace LectureTimeTable
 
                 case Constants.LECTURE_TIME:
                     Console.Write(data);
-                    PrintSpace(40+ - Encoding.Default.GetByteCount(data));
+                    PrintSpace(40 + -Encoding.Default.GetByteCount(data));
                     Console.Write("|");
                     break;
 
                 case Constants.LECTURE_ROOM:
-                    if (data != null)               
+                    if (data != null)
                     {
                         Console.Write(data);
                         PrintSpace(15 - Encoding.Default.GetByteCount(data));
@@ -203,7 +203,7 @@ namespace LectureTimeTable
 
         public void PrintBlankTable(int line)
         {
-            for(int i = 0;i < line; i++)
+            for (int i = 0; i < line; i++)
             {
                 Console.WriteLine(new string(' ', 188));
             }
@@ -226,7 +226,7 @@ namespace LectureTimeTable
                             PrintOneRowLecture(row);
                             ++rowNumber;
                         }
-                    }                                   
+                    }
 
                     break;
 
@@ -289,7 +289,7 @@ namespace LectureTimeTable
             return rowNumber;
         }
 
-        protected void EnrollmentInInterest(MyLecture myLecture,List<LectureTable> lectureTable)  //관심과목에서 수강신청 메소드
+        protected void EnrollmentInInterest(MyLecture myLecture, List<LectureTable> lectureTable)  //관심과목에서 수강신청 메소드
         {
             int addLectureNumber;
 
@@ -346,6 +346,29 @@ namespace LectureTimeTable
                 PrintFailMessage("잘못된 입력입니다.", 0);
             }
         }
+        
+        protected bool CheckOverlapTable(int[,] fixing, int[,] newOne)
+        {
+            bool isOverlap = false;
 
+            for (int row = 0; row < 24; row++)
+            {
+                for (int column = 0; column < 5; column++)
+                {
+                    if (fixing[row, column] == newOne[row, column] && fixing[row, column] == 1)
+                    {
+                        isOverlap = true;
+                        return isOverlap;
+                    }
+                }
+            }
+
+            return isOverlap;
+        }
+
+        protected void PrintTableBox(LectureTable OneLecture)
+        {
+            
+        }
     }
 }

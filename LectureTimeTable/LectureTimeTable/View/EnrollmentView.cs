@@ -109,6 +109,8 @@ namespace LectureTimeTable
             int searchNumber;
             int addLectureNumber;
             int rowNumber = 0;
+            int lectureTableIndex;
+
             switch (selectedItem)
             {
                 case 1:     //개설학과전공
@@ -162,23 +164,43 @@ namespace LectureTimeTable
                 Console.Write("수강신청할 강의 NO. 입력 : ");
                 addLectureNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, lectureTable.Count);
 
+                for (lectureTableIndex = 0; lectureTableIndex < 160 - myLecture.myInterestCourse.Count; lectureTableIndex++)
+                {
+                    if (lectureTable[lectureTableIndex].Key == addLectureNumber) break;
+                }
+
+                if (lectureTableIndex == 160 - myLecture.myInterestCourse.Count)
+                {
+                    PrintFailMessage("해당 강의가 없습니다.", 0);
+                    return;
+                }
 
 
                 if (addLectureNumber != Constants.WRONG_INPUT)
                 {
                     addLectureNumber -= myLecture.myInterestCourse.Count;
-                    if (myLecture.MyEnrollmentCredits + lectureTable[addLectureNumber - 1].Credit <= 21)   //수강신청한 학점이 21 이하일 때만
+                    if (myLecture.MyEnrollmentCredits + lectureTable[lectureTableIndex].Credit <= 21)   //수강신청한 학점이 21 이하일 때만
                     {
                         for (int row = 0; row < myLecture.mySucessfulCourse.Count; row++)
                         {
-                            if (myLecture.mySucessfulCourse[row].CourseNumber == lectureTable[addLectureNumber - 1].CourseNumber)   //학수번호가 같을 경우
+                            if (myLecture.mySucessfulCourse[row].CourseNumber == lectureTable[lectureTableIndex].CourseNumber)   //학수번호가 같을 경우
                             {
                                 PrintFailMessage("이미 추가된 강의입니다.", 0);
                                 return;
                             }
                         }
-                        myLecture.mySucessfulCourse.Add(lectureTable[addLectureNumber - 1]);
-                        myLecture.MyEnrollmentCredits += lectureTable[addLectureNumber - 1].Credit;
+
+                        for (int row = 0; row < myLecture.mySucessfulCourse.Count; row++)
+                        {
+                            if(CheckOverlapTable(myLecture.mySucessfulCourse[row].timeTable, lectureTable[lectureTableIndex].timeTable))      //시간표가 겹치면
+                            {
+                                PrintFailMessage("시간이 겹치는 강의가 존재 합니다.", 0);
+                                return;
+                            }
+                        }
+
+                        myLecture.mySucessfulCourse.Add(lectureTable[lectureTableIndex]);
+                        myLecture.MyEnrollmentCredits += lectureTable[lectureTableIndex].Credit;
                         PrintFailMessage("수강신청을 완료 했습니다.", 0);
                     }
                     else
