@@ -45,9 +45,9 @@ namespace LectureTimeTable
 
         protected void PrintFailMessage(string message, int leftGap)
         {
-            PrintLeftGap(Constants.INITIAL_TITLE_BOARDER);
+            PrintLeftGap(leftGap);
             Console.WriteLine(message);
-            PrintLeftGap(Constants.INITIAL_TITLE_BOARDER);
+            PrintLeftGap(leftGap);
             Console.WriteLine("Press Any Key...");
             Console.ReadKey();
         }

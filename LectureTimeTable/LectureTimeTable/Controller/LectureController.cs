@@ -156,6 +156,38 @@ namespace LectureTimeTable
             view.PrintTitle(Constants.INITIAL_TITLE_BOARDER, " 내 시간표 "); //부제출력
 
             view.PrintTimeTable(myLecture.mySucessfulCourse);
+
+            Excel.Application application = new Excel.Application();
+            Excel.Workbook workbook = application.Workbooks.Open(Environment.CurrentDirectory + "\\2020년 1학기 강의시간표.xlsx");
+            Excel.Sheets sheets = workbook.Sheets;
+            Excel.Worksheet worksheet = sheets["timeTable"] as Excel.Worksheet;
+
+            var data = new object[24, 5];
+
+            for (int row = 1; row <= 24; row++)
+            {
+                for (int column = 1; column <= 5; column++)
+                {
+                    for (int lectureCount = 0; lectureCount < myLecture.mySucessfulCourse.Count; lectureCount++)
+                    {
+                        if (myLecture.mySucessfulCourse[lectureCount].timeTable[row-1, column-1] == 1)
+                        {
+
+                            data[row - 1, column - 1] = myLecture.mySucessfulCourse[lectureCount].CourseTitle +"\n" + myLecture.mySucessfulCourse[lectureCount].LectureRoom;
+                        }
+                    }
+                }
+            }
+            var startCell = worksheet.Cells[2, 2];
+            var endCell = worksheet.Cells[25, 6];
+            var writeRange = worksheet.Range[startCell, endCell];
+
+            writeRange.Value2 = data;
+            
+
+            application.Workbooks.Close();
+            application.Quit();
+
             Currentstate = Constants.START_MENU;
         }
     }
