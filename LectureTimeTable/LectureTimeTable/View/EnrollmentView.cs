@@ -43,15 +43,17 @@ namespace LectureTimeTable
             return selectedItem;
         }
 
-        public void PrintMyEnrollmentLeactures(MyLecture myLecture)   //내가 관심과목으로 담은 강의들 리스트 출력
+        public int PrintMyEnrollmentLeactures(MyLecture myLecture)   //내가 관심과목으로 담은 강의들 리스트 출력
         {
+            int rowNumber = 0;
             Console.SetCursorPosition(0, Constants.UNDER_TITLE_Y);
 
-            if (myLecture.myInterestCourse.Count != 0)
+            if (myLecture.mySucessfulCourse.Count != 0)
             {
-                foreach (LectureTable row in myLecture.myInterestCourse)
+                foreach (LectureTable row in myLecture.mySucessfulCourse)
                 {
                     PrintOneRowLecture(row);
+                    rowNumber++;
                 }
                 Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Constants.UNDER_TABLE_Y + 3);
                 PrintFailMessage("", 0);
@@ -62,6 +64,8 @@ namespace LectureTimeTable
                 Console.SetCursorPosition(0, Constants.UNDER_TITLE_Y);
                 PrintBlankTable(2);
             }
+
+            return rowNumber;
         }
 
         public int SeruchLectureTypes()
@@ -126,12 +130,13 @@ namespace LectureTimeTable
                     rowNumber = SearchLecture(lectureTable, searchWord, Constants.PROFESSOR_NAME);
                     break;
                 case 6:   //관심과목담기한 강의
-
+                    rowNumber = PrintMyEnrollmentLeactures(myLecture);
+                    break;
                 case 7:    //종료
                     return;
             }
 
-            if (rowNumber == 0)
+            if (rowNumber == 0 && selectedItem != 6) //검색한 강의가 조회되지않커나 관심과목 검색시
             {
                 PrintFailMessage("검색한 강의를 찾을 수 없습니다.", 0);
                 return;

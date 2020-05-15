@@ -143,7 +143,7 @@ namespace LectureTimeTable
                         Console.Clear();
                         break;
 
-                    default:
+                    default:   //위 네가지 입력이 아닐경우 재시작
                         break;
                 }
             }
