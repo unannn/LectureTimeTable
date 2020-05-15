@@ -53,5 +53,14 @@ namespace LectureTimeTable
         //출력 후 첫줄 좌표
         public const int UNDER_TITLE_Y = 11;
         public const int UNDER_TABLE_Y = 35;
+
+        //날짜
+
+        public const int MONDAY = 0;
+        public const int TUESNDAY = 1;
+        public const int WEDNESDAY = 2;
+        public const int THURSDAY = 3;
+        public const int FRIDAY = 4;
+
     }
 }

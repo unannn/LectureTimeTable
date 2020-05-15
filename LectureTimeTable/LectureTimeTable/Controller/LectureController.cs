@@ -152,7 +152,7 @@ namespace LectureTimeTable
         
         public void RunCurrentTimetable(List<LectureTable> lectureTable, MyLecture myLecture, LectureView view)
         {
-
+            
         }
     }
 }
