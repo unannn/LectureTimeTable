@@ -63,6 +63,30 @@ namespace LectureTimeTable
                 PrintBlankTable(2);
             }
         }
+
+        public int SeruchLectureTypes()
+        {
+            List<string> serchingItem = new List<string>()
+            {
+                "1. 개설학과전공",
+                "2. 학수번호",
+                "3. 교과목명",
+                "4. 학년",
+                "5, 교수명",
+                "6. 검색 종료"
+            };
+            int inputNumber;
+            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+            PrintBlankTable(10);
+            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+            PrintMenu(serchingItem, 0);
+            Console.Write("메뉴 선택 : ");
+
+            inputNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, serchingItem.Count);
+
+            return inputNumber;
+        }
+
         public void StartSelectedItem(int selectedItem, List<LectureTable> lectureTable, MyLecture myLecture)
         {
             string searchWord = null;

@@ -17,7 +17,7 @@ namespace LectureTimeTable
                 "1. 내가 신청한 강의",
                 "2. 수강 신청",
                 "3, 신청한 강의 삭제",
-                "4. 수강신청 담기 종료"
+                "4. 수강신청 종료"
             };
 
             Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
@@ -58,11 +58,36 @@ namespace LectureTimeTable
             }
             else
             {
-                PrintFailMessage("관심과목으로 담은 강의가 없습니다", 0);
+                PrintFailMessage("수강 신청된 강의가 없습니다", 0);
                 Console.SetCursorPosition(0, Constants.UNDER_TITLE_Y);
                 PrintBlankTable(2);
             }
         }
+
+        public int SeruchLectureTypes()
+        {
+            List<string> serchingItem = new List<string>()
+            {
+                "1. 개설학과전공",
+                "2. 학수번호",
+                "3. 교과목명",
+                "4. 학년",
+                "5, 교수명",
+                "6. 관심과목",
+                "7. 검색 종료"
+            };
+            int inputNumber;
+            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+            PrintBlankTable(10);
+            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+            PrintMenu(serchingItem, 0);
+            Console.Write("메뉴 선택 : ");
+
+            inputNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, serchingItem.Count);
+
+            return inputNumber;
+        }
+
         public void StartEnrollment(int selectedItem, List<LectureTable> lectureTable, MyLecture myLecture)
         {
             string searchWord = null;
@@ -101,7 +126,7 @@ namespace LectureTimeTable
                     rowNumber = SearchLecture(lectureTable, searchWord, Constants.PROFESSOR_NAME);
                     break;
 
-                case 6:    //종료
+                case 7:    //종료
                     return;
             }
 

@@ -86,7 +86,7 @@ namespace LectureTimeTable
                         break;
 
                     case Constants.INTEREST_LECTURE_SEARCHING:
-                        selectedSearchingType = view.SeruchLectureTypes();
+                        selectedSearchingType = interestView.SeruchLectureTypes();
                         interestView.StartSelectedItem(selectedSearchingType,lectureTable,myLecture);
                         break;
 
@@ -129,7 +129,7 @@ namespace LectureTimeTable
                         break;
 
                     case Constants.INTEREST_LECTURE_SEARCHING:
-                        selectedSearchingType = view.SeruchLectureTypes();
+                        selectedSearchingType = enrollmentView.SeruchLectureTypes();
                         enrollmentView.StartEnrollment(selectedSearchingType, lectureTable, myLecture);
                         break;
 
