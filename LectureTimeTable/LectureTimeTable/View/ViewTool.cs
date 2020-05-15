@@ -328,7 +328,8 @@ namespace LectureTimeTable
                             return;
                         }
                     }
-                    myLecture.MyInterestCredits -= lectureTable[addLectureNumber - 1].Credit;
+
+                    myLecture.MyInterestCredits -= myLecture.myInterestCourse[row].Credit;
                     myLecture.mySucessfulCourse.Add(myLecture.myInterestCourse[row]);   //수강신청 성공
                     myLecture.MyEnrollmentCredits += myLecture.myInterestCourse[row].Credit;
                     myLecture.myInterestCourse.RemoveAt(row);

@@ -210,6 +210,7 @@ namespace LectureTimeTable
                     if (inputNumber == myLecture.mySucessfulCourse[row].Key)
                     {
                         myLecture.MyEnrollmentCredits -= myLecture.mySucessfulCourse[row].Credit;
+                        myLecture.MyInterestCredits += myLecture.mySucessfulCourse[row].Credit;
                         myLecture.myInterestCourse.Add(myLecture.mySucessfulCourse[row]);
                         myLecture.mySucessfulCourse.RemoveAt(row);
                         PrintFailMessage("삭제되었습니다.", 0);
