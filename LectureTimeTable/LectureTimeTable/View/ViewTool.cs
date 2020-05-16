@@ -292,7 +292,7 @@ namespace LectureTimeTable
         protected void EnrollmentInInterest(MyLecture myLecture, List<LectureTable> lectureTable)  //관심과목에서 수강신청 메소드
         {
             int addLectureNumber;
-
+            int lectureTableIndex;
 
             Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
             PrintBlankTable(17);
@@ -303,18 +303,15 @@ namespace LectureTimeTable
             addLectureNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, 160);
 
             if (addLectureNumber != Constants.WRONG_INPUT)
-            {
-                //addLectureNumber -= myLecture.myInterestCourse.Count;
+            {                
                 if (myLecture.MyEnrollmentCredits <= 21)   //수강신청한 학점이 21 이하일 때만
                 {
-                    int row;
-
-                    for (row = 0; row < myLecture.myInterestCourse.Count; row++)  //입력받은 NO의 강의를 찾음
+                    for (lectureTableIndex = 0; lectureTableIndex < myLecture.myInterestCourse.Count; lectureTableIndex++)  //입력받은 NO의 강의를 찾음
                     {
-                        if (myLecture.myInterestCourse[row].Key == addLectureNumber) break;
+                        if (myLecture.myInterestCourse[lectureTableIndex].Key == addLectureNumber) break;
                     }
 
-                    if (row == myLecture.myInterestCourse.Count)        // 찾지못하면 종료
+                    if (lectureTableIndex == myLecture.myInterestCourse.Count)        // 찾지못하면 종료
                     {
                         PrintFailMessage("강의를 찾을 수 없습니다.", 0);
                         return;
@@ -322,17 +319,17 @@ namespace LectureTimeTable
                     //강의를 찾은 경우
                     for (int Enrollment = 0; Enrollment < myLecture.mySucessfulCourse.Count; Enrollment++)
                     {
-                        if (myLecture.mySucessfulCourse[row].CourseNumber == myLecture.myInterestCourse[row].CourseNumber)
+                        if (myLecture.mySucessfulCourse[Enrollment].CourseNumber == myLecture.myInterestCourse[lectureTableIndex].CourseNumber)
                         {
                             PrintFailMessage("학수번호가 같은 강의가 존재합니다.", 0);
                             return;
                         }
                     }
 
-                    myLecture.MyInterestCredits -= myLecture.myInterestCourse[row].Credit;
-                    myLecture.mySucessfulCourse.Add(myLecture.myInterestCourse[row]);   //수강신청 성공
-                    myLecture.MyEnrollmentCredits += myLecture.myInterestCourse[row].Credit;
-                    myLecture.myInterestCourse.RemoveAt(row);
+                    myLecture.MyInterestCredits -= myLecture.myInterestCourse[lectureTableIndex].Credit;
+                    myLecture.mySucessfulCourse.Add(myLecture.myInterestCourse[lectureTableIndex]);   //수강신청 성공
+                    myLecture.MyEnrollmentCredits += myLecture.myInterestCourse[lectureTableIndex].Credit;
+                    myLecture.myInterestCourse.RemoveAt(lectureTableIndex);
 
                     PrintFailMessage("수강신청을 완료 했습니다.", 0);
                 }

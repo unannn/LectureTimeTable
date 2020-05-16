@@ -56,7 +56,7 @@ namespace LectureTimeTable
 
             for (int time = 0; time < 24; time++)
             {
-                Console.SetCursorPosition(0, time * 3 + 10);  //시간 출력
+                Console.SetCursorPosition(5+35, time * 3 + 10);  //시간 출력
                 if (time / 4 == 0) Console.Write("0");
                 Console.Write((time+16)/2 + ":");
                 if (time % 2 == 1) Console.Write("30");
@@ -64,7 +64,7 @@ namespace LectureTimeTable
 
                 for (int day = 0; day < 5; day++)
                 {
-                    Console.SetCursorPosition(day * 20 + 30,Constants.UNDER_TITLE_Y-2);
+                    Console.SetCursorPosition(day * 20 + 30+35,Constants.UNDER_TITLE_Y-2);
 
                     switch (day)
                     {
@@ -89,16 +89,17 @@ namespace LectureTimeTable
                     {
                         if(enrollmentTable[lectureCount].timeTable[time,day] == 1)
                         {
-                            Console.SetCursorPosition(day * 20 + 30, time * 3 + 10);
+                            Console.SetCursorPosition(day * 20 + 30+35, time * 3 + 10);
                             Console.WriteLine(enrollmentTable[lectureCount].CourseTitle);
-                            Console.SetCursorPosition(day * 20 + 30, time * 3 + 1 + 10);
+                            Console.SetCursorPosition(day * 20 + 30+35, time * 3 + 1 + 10);
                             Console.Write(enrollmentTable[lectureCount].LectureRoom);
                         }
                     }
                 }
             }
+            Console.SetCursorPosition(90, 24* 3 + 10);
 
-            PrintFailMessage("", 160);
+            PrintFailMessage("", 0);
 
         }
 

@@ -23,8 +23,7 @@ namespace LectureTimeTable
             PrintBlankTable(14);
             Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
             Console.WriteLine();
-            //PrintInputGuide(inputGuide);
-
+           
             PrintMenu(menu, 0);
 
             Console.Write(" 메뉴 선택 : ");
@@ -139,27 +138,27 @@ namespace LectureTimeTable
                 return;
             }
 
-            if (rowNumber < 13) Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Constants.UNDER_TABLE_Y + 3);
+            if (rowNumber < 13) Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Constants.UNDER_TABLE_Y + 3);   //커서 이동
             else Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Console.CursorTop + 3);
 
             if (selectedItem != 6)
             {
                 Console.Write("관심과목에 담을 NO. 입력 : ");
                 addLectureNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, 160);
-
-                for (lectureTableIndex = 0; lectureTableIndex < 160 - myLecture.myInterestCourse.Count; lectureTableIndex++)
-                {
-                    if (lectureTable[lectureTableIndex].Key == addLectureNumber) break;
-                }
-
-                if (lectureTableIndex == 160 - myLecture.myInterestCourse.Count)
-                {
-                    PrintFailMessage("해당 강의가 없습니다.",0);
-                    return;
-                }
-
+                
                 if (addLectureNumber != Constants.WRONG_INPUT)
                 {
+                    for (lectureTableIndex = 0; lectureTableIndex < lectureTable.Count; lectureTableIndex++)
+                    {
+                        if (lectureTable[lectureTableIndex].Key == addLectureNumber) break;
+                    }
+
+                    if (lectureTableIndex == lectureTable.Count)
+                    {
+                        PrintFailMessage("해당 강의가 없습니다.", 0);
+                        return;
+                    }
+
                     if (myLecture.MyInterestCredits + lectureTable[lectureTableIndex].Credit <= 24)   //현재 관심과목에담은 학점이 24 이하일 때만
                     {
                         for (int row = 0; row < myLecture.myInterestCourse.Count; row++)

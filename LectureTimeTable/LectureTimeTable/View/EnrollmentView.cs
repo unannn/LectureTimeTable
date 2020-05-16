@@ -61,7 +61,7 @@ namespace LectureTimeTable
                 Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Constants.UNDER_TABLE_Y + 3);
 
                 if (myLecture.myInterestCourse != lectures)Console.WriteLine("현재 신청한 학점 : {0}/21 ", myLecture.MyEnrollmentCredits);
-                else Console.WriteLine("현재 신청한 학점 : {0}/21 ", myLecture.MyInterestCredits);
+                else Console.WriteLine("현재 신청한 학점 : {0}/24 ", myLecture.MyInterestCredits);
 
                 PrintFailMessage("", 0);
             }
@@ -142,43 +142,43 @@ namespace LectureTimeTable
                     searchWord = Exception.Instance.InputString(1, 10);
                     rowNumber = SearchLecture(lectureTable, searchWord, Constants.PROFESSOR_NAME);
                     break;
+
                 case 6:   //관심과목담기한 강의
                     rowNumber = PrintLeactures(myLecture.myInterestCourse,myLecture);
-                    if(rowNumber != 0)EnrollmentInInterest(myLecture,lectureTable);
+                    if(rowNumber != 0) EnrollmentInInterest(myLecture,lectureTable);
                     return;
+
                 case 7:    //종료
                     return;
             }
 
-            if (rowNumber == 0 && selectedItem != 6) //검색한 강의가 조회되지않커나 관심과목 검색시
+            if (rowNumber == 0) //검색한 강의가 조회되지 않을 때
             {
                 PrintFailMessage("검색한 강의를 찾을 수 없습니다.", 0);
                 return;
             }
 
-            if (rowNumber < 13) Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Constants.UNDER_TABLE_Y + 3);
+            if (rowNumber < 13) Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Constants.UNDER_TABLE_Y + 3); 
             else Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Console.CursorTop + 3);
 
             if (selectedItem != 6)
             {
                 Console.Write("수강신청할 강의 NO. 입력 : ");
-                addLectureNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, lectureTable.Count);
-
-                for (lectureTableIndex = 0; lectureTableIndex < 160 - myLecture.myInterestCourse.Count; lectureTableIndex++)
-                {
-                    if (lectureTable[lectureTableIndex].Key == addLectureNumber) break;
-                }
-
-                if (lectureTableIndex == 160 - myLecture.myInterestCourse.Count)
-                {
-                    PrintFailMessage("해당 강의가 없습니다.", 0);
-                    return;
-                }
-
-
+                addLectureNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, 160);
+                 
                 if (addLectureNumber != Constants.WRONG_INPUT)
                 {
-                    addLectureNumber -= myLecture.myInterestCourse.Count;
+                    for (lectureTableIndex = 0; lectureTableIndex < lectureTable.Count; lectureTableIndex++)
+                    {
+                        if (lectureTable[lectureTableIndex].Key == addLectureNumber) break;
+                    }
+
+                    if (lectureTableIndex == lectureTable.Count)
+                    {
+                        PrintFailMessage("해당 강의가 없습니다.", 0);
+                        return;
+                    }
+
                     if (myLecture.MyEnrollmentCredits + lectureTable[lectureTableIndex].Credit <= 21)   //수강신청한 학점이 21 이하일 때만
                     {
                         for (int row = 0; row < myLecture.mySucessfulCourse.Count; row++)
@@ -201,6 +201,8 @@ namespace LectureTimeTable
 
                         myLecture.mySucessfulCourse.Add(lectureTable[lectureTableIndex]);
                         myLecture.MyEnrollmentCredits += lectureTable[lectureTableIndex].Credit;
+                        lectureTable.RemoveAt(lectureTableIndex);
+
                         PrintFailMessage("수강신청을 완료 했습니다.", 0);
                     }
                     else

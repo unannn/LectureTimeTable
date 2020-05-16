@@ -158,32 +158,33 @@ namespace LectureTimeTable
             view.PrintTimeTable(myLecture.mySucessfulCourse);
 
             Excel.Application application = new Excel.Application();
-            Excel.Workbook workbook = application.Workbooks.Open(Environment.CurrentDirectory + "\\2020년 1학기 강의시간표.xlsx");
+            Excel.Workbook workbook = application.Workbooks.Add();
             Excel.Sheets sheets = workbook.Sheets;
-            Excel.Worksheet worksheet = sheets["timeTable"] as Excel.Worksheet;
+            Excel._Worksheet worksheet = (Excel._Worksheet)application.ActiveSheet;
 
             var data = new object[24, 5];
 
-            for (int row = 1; row <= 24; row++)
+            for (int row = 0; row < 24; row++)
             {
-                for (int column = 1; column <= 5; column++)
+                for (int column = 0; column < 5; column++)
                 {
                     for (int lectureCount = 0; lectureCount < myLecture.mySucessfulCourse.Count; lectureCount++)
                     {
-                        if (myLecture.mySucessfulCourse[lectureCount].timeTable[row-1, column-1] == 1)
+                        if (myLecture.mySucessfulCourse[lectureCount].timeTable[row, column] == 1)
                         {
-
-                            data[row - 1, column - 1] = myLecture.mySucessfulCourse[lectureCount].CourseTitle +"\n" + myLecture.mySucessfulCourse[lectureCount].LectureRoom;
+                            data[row, column] = myLecture.mySucessfulCourse[lectureCount].CourseTitle + "\n" + myLecture.mySucessfulCourse[lectureCount].LectureRoom;
                         }
                     }
                 }
             }
+
             var startCell = worksheet.Cells[2, 2];
             var endCell = worksheet.Cells[25, 6];
             var writeRange = worksheet.Range[startCell, endCell];
 
             writeRange.Value2 = data;
-            
+
+            worksheet.SaveAs(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\TimeTable.xlsx");
 
             application.Workbooks.Close();
             application.Quit();
