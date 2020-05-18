@@ -311,9 +311,8 @@ namespace LectureTimeTable
             int addLectureNumber;
             int lectureTableIndex;
 
-            PrintBlankTable(14, Constants.UNDER_TABLE_Y+1);
-
-            Console.WriteLine();
+            if (myLecture.myInterestCourse.Count < 13) Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Console.CursorTop - 1);
+            else Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Console.CursorTop + 3);
 
             Console.Write("수강신청할 강의 NO. 입력 : ");
             addLectureNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, 160);
@@ -329,15 +328,20 @@ namespace LectureTimeTable
 
                     if (lectureTableIndex == myLecture.myInterestCourse.Count)        // 찾지못하면 종료
                     {
-                        PrintFailMessage("강의를 찾을 수 없습니다.", 0);
+                        PrintFailMessage("강의를 찾을 수 없습니다.", Constants.INITIAL_TITLE_BOARDER);
                         return;
                     }
                     //강의를 찾은 경우
                     for (int Enrollment = 0; Enrollment < myLecture.mySucessfulCourse.Count; Enrollment++)
                     {
+                        if(myLecture.mySucessfulCourse[Enrollment].Key == addLectureNumber)
+                        {
+                            PrintFailMessage("이미 수강신청한 강의 입니다.", Constants.INITIAL_TITLE_BOARDER);
+                            return;
+                        }
                         if (myLecture.mySucessfulCourse[Enrollment].CourseNumber == myLecture.myInterestCourse[lectureTableIndex].CourseNumber)
                         {
-                            PrintFailMessage("학수번호가 같은 강의가 존재합니다.", 0);
+                            PrintFailMessage("학수번호가 같은 강의가 존재합니다.", Constants.INITIAL_TITLE_BOARDER);
                             return;
                         }
                     }
@@ -346,7 +350,7 @@ namespace LectureTimeTable
                     {
                         if (CheckOverlapTable(myLecture.mySucessfulCourse[row].timeTable, myLecture.myInterestCourse[lectureTableIndex].timeTable))      //시간표가 겹치면
                         {
-                            PrintFailMessage("시간이 겹치는 강의가 존재 합니다.", 0);
+                            PrintFailMessage("시간이 겹치는 강의가 존재 합니다.", Constants.INITIAL_TITLE_BOARDER);
                             return;
                         }
                     }
@@ -356,16 +360,16 @@ namespace LectureTimeTable
                     myLecture.MyEnrollmentCredits += myLecture.myInterestCourse[lectureTableIndex].Credit;
                     myLecture.myInterestCourse.RemoveAt(lectureTableIndex);
 
-                    PrintFailMessage("수강신청을 완료 했습니다.", 0);
+                    PrintFailMessage("수강신청을 완료 했습니다.", Constants.INITIAL_TITLE_BOARDER);
                 }
                 else
                 {
-                    PrintFailMessage("더이상 담을 수 없습니다.", 0);
+                    PrintFailMessage("더이상 담을 수 없습니다.", Constants.INITIAL_TITLE_BOARDER);
                 }
             }
             else
             {
-                PrintFailMessage("잘못된 입력입니다.", 0);
+                PrintFailMessage("잘못된 입력입니다.", Constants.INITIAL_TITLE_BOARDER);
             }
         }
         

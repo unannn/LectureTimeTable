@@ -18,12 +18,11 @@ namespace LectureTimeTable
                 "3, 관심과목 삭제",
                 "4. 관심과목 담기 종료"
             };
-
-            //PrintBlankTable(14, Constants.UNDER_TABLE_Y+1);
-
+            
             Console.WriteLine();
            
             PrintMenu(menu, Constants.INITIAL_TITLE_BOARDER);
+
             PrintLeftGap(Constants.INITIAL_TITLE_BOARDER);
             Console.Write("메뉴 선택 : ");
 
@@ -57,7 +56,7 @@ namespace LectureTimeTable
             }
             else
             {
-                Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y + 3);
+                Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y + 2);
 
                 PrintFailMessage("관심과목으로 담은 강의가 없습니다", Constants.INITIAL_TITLE_BOARDER);
                
