@@ -20,8 +20,11 @@ namespace LectureTimeTable
         private string lectureRoom;             //강의실
         private string professorName;          //교수명
         private string language;              //언어
-        private string[] separatedTime;
-        public int[,] timeTable;
+        private int interestOrEnrollment;
+
+        //요일및강의시간 정보
+        private string[] separatedTime;   // 문자열 ' ' 로 자른 문자열 배열
+        public int[,] timeTable;          //강의시간을 24(8~20시) X 5(월~금요일) 배열에 0 과 1로 표현한 정수 배열
 
         public int Key
         {
@@ -92,7 +95,13 @@ namespace LectureTimeTable
             set { language = value;}
         }
 
-        public LectureTable(int key,string departmentOfOpening,int courseNumber, string dividedClassNumber,string courseTitle,string classification,int year, double credit,string dayAndLectureTime,string lectureRoom,string professorName,string language )
+        public int InterestOrEnrollment
+        {
+            get { return interestOrEnrollment; }
+            set { interestOrEnrollment = value; }
+        }
+
+        public LectureTable(int key,string departmentOfOpening,int courseNumber, string dividedClassNumber,string courseTitle,string classification,int year, double credit,string dayAndLectureTime,string lectureRoom,string professorName,string language,int interestOrEnrollment )
         {
             this.key = key;
             this.departmentOfOpening = departmentOfOpening;
@@ -106,6 +115,7 @@ namespace LectureTimeTable
             this.lectureRoom = lectureRoom;
             this.professorName = professorName;
             this.language = language;
+            this.interestOrEnrollment = interestOrEnrollment;
             timeTable = new int[24, 5];                    //시간정보 담을 배열 크기 설정
 
 

@@ -22,6 +22,10 @@ namespace LectureTimeTable
         public const int WRONG_INPUT = -1;
         public const string WRONG_STRING = null;
 
+        //강의의 소속
+        public const int INTEREST_LECTURE = 0;
+        public const int ENROLLMENT_LECTURE = 1;
+
         // 데이터 타입
         public const int KEY = 1;
         public const int DEPARTMENT = 2;

@@ -168,22 +168,22 @@ namespace LectureTimeTable
                  
                 if (addLectureNumber != Constants.WRONG_INPUT)
                 {
-                    for (lectureTableIndex = 0; lectureTableIndex < lectureTable.Count; lectureTableIndex++)
+                    for (lectureTableIndex = 0; lectureTableIndex < enrollmentTable.Count; lectureTableIndex++)
                     {
-                        if (lectureTable[lectureTableIndex].Key == addLectureNumber) break;
+                        if (enrollmentTable[lectureTableIndex].Key == addLectureNumber) break;
                     }
 
-                    if (lectureTableIndex == lectureTable.Count)
+                    if (lectureTableIndex == enrollmentTable.Count)   //반복 문을 모두 돌때 까지 탈출 하지 못했으므로
                     {
                         PrintFailMessage("해당 강의가 없습니다.", 0);
                         return;
                     }
 
-                    if (myLecture.MyEnrollmentCredits + lectureTable[lectureTableIndex].Credit <= 21)   //수강신청한 학점이 21 이하일 때만
+                    if (myLecture.MyEnrollmentCredits + enrollmentTable[lectureTableIndex].Credit <= 21)   //수강신청한 학점이 21 이하일 때만
                     {
                         for (int row = 0; row < myLecture.mySucessfulCourse.Count; row++)
                         {
-                            if (myLecture.mySucessfulCourse[row].CourseNumber == lectureTable[lectureTableIndex].CourseNumber)   //학수번호가 같을 경우
+                            if (myLecture.mySucessfulCourse[row].CourseNumber == enrollmentTable[lectureTableIndex].CourseNumber)   //학수번호가 같을 경우
                             {
                                 PrintFailMessage("이미 추가된 강의입니다.", 0);
                                 return;
@@ -192,16 +192,16 @@ namespace LectureTimeTable
 
                         for (int row = 0; row < myLecture.mySucessfulCourse.Count; row++)
                         {
-                            if(CheckOverlapTable(myLecture.mySucessfulCourse[row].timeTable, lectureTable[lectureTableIndex].timeTable))      //시간표가 겹치면
+                            if(CheckOverlapTable(myLecture.mySucessfulCourse[row].timeTable, enrollmentTable[lectureTableIndex].timeTable))      //시간표가 겹치면
                             {
                                 PrintFailMessage("시간이 겹치는 강의가 존재 합니다.", 0);
                                 return;
                             }
                         }
 
-                        myLecture.mySucessfulCourse.Add(lectureTable[lectureTableIndex]);
-                        myLecture.MyEnrollmentCredits += lectureTable[lectureTableIndex].Credit;
-                        lectureTable.RemoveAt(lectureTableIndex);
+                        myLecture.mySucessfulCourse.Add(enrollmentTable[lectureTableIndex]);
+                        myLecture.MyEnrollmentCredits += enrollmentTable[lectureTableIndex].Credit;
+                        enrollmentTable.RemoveAt(lectureTableIndex);
 
                         PrintFailMessage("수강신청을 완료 했습니다.", 0);
                     }
@@ -217,7 +217,7 @@ namespace LectureTimeTable
             }
         }
 
-        public void DeleteEnrollmentLecture(MyLecture myLecture)  //삭제하면 관심과목이 아닐때도 관심과목으로 복구되는것 수정할것 
+        public void DeleteEnrollmentLecture(MyLecture myLecture, List<LectureTable> enrollmentTable)  //삭제하면 관심과목이 아닐때도 관심과목으로 복구되는것 수정할것 
         {
             int inputNumber;
             PrintLeactures(myLecture.mySucessfulCourse, myLecture);
@@ -233,12 +233,29 @@ namespace LectureTimeTable
                 {
                     if (inputNumber == myLecture.mySucessfulCourse[row].Key)
                     {
+                        if (myLecture.mySucessfulCourse[row].InterestOrEnrollment == Constants.INTEREST_LECTURE)
+                        {
+                            myLecture.MyEnrollmentCredits -= myLecture.mySucessfulCourse[row].Credit;
+                            myLecture.MyInterestCredits += myLecture.mySucessfulCourse[row].Credit;
+                            myLecture.myInterestCourse.Add(myLecture.mySucessfulCourse[row]);
+                            myLecture.mySucessfulCourse.RemoveAt(row);
+                            PrintFailMessage("삭제되었습니다.", 0);
+
+                            return;
+                        }
+
                         myLecture.MyEnrollmentCredits -= myLecture.mySucessfulCourse[row].Credit;
-                        myLecture.MyInterestCredits += myLecture.mySucessfulCourse[row].Credit;
-                        myLecture.myInterestCourse.Add(myLecture.mySucessfulCourse[row]);
+                        enrollmentTable.Add(myLecture.mySucessfulCourse[row]);
                         myLecture.mySucessfulCourse.RemoveAt(row);
-                        PrintFailMessage("삭제되었습니다.", 0);
+
                         return;
+
+                        //myLecture.MyEnrollmentCredits -= myLecture.mySucessfulCourse[row].Credit;
+                        //myLecture.MyInterestCredits += myLecture.mySucessfulCourse[row].Credit;
+                        //myLecture.myInterestCourse.Add(myLecture.mySucessfulCourse[row]);
+                        //myLecture.mySucessfulCourse.RemoveAt(row);
+                        //PrintFailMessage("삭제되었습니다.", 0);
+                        //return;
                     }
                 }
             }
