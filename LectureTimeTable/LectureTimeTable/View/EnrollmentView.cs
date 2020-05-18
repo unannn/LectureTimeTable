@@ -233,7 +233,7 @@ namespace LectureTimeTable
                 {
                     if (inputNumber == myLecture.mySucessfulCourse[row].Key)
                     {
-                        if (myLecture.mySucessfulCourse[row].InterestOrEnrollment == Constants.INTEREST_LECTURE)
+                        if (myLecture.mySucessfulCourse[row].InterestOrEnrollment == Constants.INTEREST_LECTURE)  //관심과목에서 신청된 강의였을 경우 관심과목으로 되돌아감
                         {
                             myLecture.MyEnrollmentCredits -= myLecture.mySucessfulCourse[row].Credit;
                             myLecture.MyInterestCredits += myLecture.mySucessfulCourse[row].Credit;

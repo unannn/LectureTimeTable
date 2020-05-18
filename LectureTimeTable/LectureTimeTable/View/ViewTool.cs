@@ -327,28 +327,28 @@ namespace LectureTimeTable
                     }
 
                     // 위에 조건들을 통과하면 수강신청 실행
-                    for(int i = 0;i < enrollmentTable.Count;i++)
-                    {
-                        if (enrollmentTable[i].Key == myLecture.myInterestCourse[lectureTableIndex].Key)
-                        {
-                            myLecture.MyInterestCredits -= enrollmentTable[i].Credit;
-                            myLecture.mySucessfulCourse.Add(enrollmentTable[i]);   //수강신청 성공
-                            myLecture.MyEnrollmentCredits += enrollmentTable[i].Credit;
-                            myLecture.myInterestCourse.RemoveAt(lectureTableIndex);
-                            enrollmentTable.RemoveAt(i);
+                    //for(int i = 0;i < enrollmentTable.Count;i++)
+                    //{
+                    //    if (enrollmentTable[i].Key == myLecture.myInterestCourse[lectureTableIndex].Key)
+                    //    {
+                    //        myLecture.MyInterestCredits -= enrollmentTable[i].Credit;
+                    //        myLecture.mySucessfulCourse.Add(enrollmentTable[i]);   //수강신청 성공
+                    //        myLecture.MyEnrollmentCredits += enrollmentTable[i].Credit;
+                    //        myLecture.myInterestCourse.RemoveAt(lectureTableIndex);
+                    //        enrollmentTable.RemoveAt(i);
 
-                            PrintFailMessage("수강신청을 완료 했습니다.", 0);
+                    //        PrintFailMessage("수강신청을 완료 했습니다.", 0);
 
-                            return;
-                        }
-                    }
+                    //        return;
+                    //    }
+                    //}
 
-                    //myLecture.MyInterestCredits -= myLecture.myInterestCourse[lectureTableIndex].Credit;
-                    //myLecture.mySucessfulCourse.Add(myLecture.myInterestCourse[lectureTableIndex]);   //수강신청 성공
-                    //myLecture.MyEnrollmentCredits += myLecture.myInterestCourse[lectureTableIndex].Credit;
-                    //myLecture.myInterestCourse.RemoveAt(lectureTableIndex);
+                    myLecture.MyInterestCredits -= myLecture.myInterestCourse[lectureTableIndex].Credit;
+                    myLecture.mySucessfulCourse.Add(myLecture.myInterestCourse[lectureTableIndex]);   //수강신청 성공
+                    myLecture.MyEnrollmentCredits += myLecture.myInterestCourse[lectureTableIndex].Credit;
+                    myLecture.myInterestCourse.RemoveAt(lectureTableIndex);
 
-                    //PrintFailMessage("수강신청을 완료 했습니다.", 0);
+                    PrintFailMessage("수강신청을 완료 했습니다.", 0);
                 }
                 else
                 {
