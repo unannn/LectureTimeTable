@@ -326,6 +326,14 @@ namespace LectureTimeTable
                         }
                     }
 
+                    for (int row = 0; row < myLecture.mySucessfulCourse.Count; row++)
+                    {
+                        if (CheckOverlapTable(myLecture.mySucessfulCourse[row].timeTable, myLecture.myInterestCourse[lectureTableIndex].timeTable))      //시간표가 겹치면
+                        {
+                            PrintFailMessage("시간이 겹치는 강의가 존재 합니다.", 0);
+                            return;
+                        }
+                    }
                     // 위에 조건들을 통과하면 수강신청 실행
                     //for(int i = 0;i < enrollmentTable.Count;i++)
                     //{
