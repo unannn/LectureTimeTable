@@ -103,7 +103,7 @@ namespace LectureTimeTable
             return inputNumber;
         }
 
-        public void StartEnrollment(int selectedItem, List<LectureTable> lectureTable, MyLecture myLecture)
+        public void StartEnrollment(int selectedItem, List<LectureTable> interestTable, List<LectureTable> enrollmentTable, MyLecture myLecture)
         {
             string searchWord = null;
             int searchNumber;
@@ -116,36 +116,36 @@ namespace LectureTimeTable
                 case 1:     //개설학과전공
                     Console.Write("개설학과전공 검색 : ");
                     searchWord = Exception.Instance.InputString(1, 10);
-                    rowNumber = SearchLecture(lectureTable, searchWord, Constants.DEPARTMENT);
+                    rowNumber = SearchLecture(enrollmentTable, searchWord, Constants.DEPARTMENT);
                     break;
 
                 case 2:     //학수번호
                     Console.Write("학수번호 검색 : ");
                     searchNumber = Exception.Instance.InputNumber(1, 100000);
-                    rowNumber = SearchLecture(lectureTable, searchNumber, Constants.COURSE_NUMBER);
+                    rowNumber = SearchLecture(enrollmentTable, searchNumber, Constants.COURSE_NUMBER);
                     break;
 
                 case 3:     //교과목명
                     Console.Write("교과목명 검색 : ");
                     searchWord = Exception.Instance.InputString(1, 10);
-                    rowNumber = SearchLecture(lectureTable, searchWord, Constants.COURSE_TITLE);
+                    rowNumber = SearchLecture(enrollmentTable, searchWord, Constants.COURSE_TITLE);
                     break;
 
                 case 4:    //학년
                     Console.Write("이수학년 검색 : ");
                     searchNumber = Exception.Instance.InputNumber(1, 4);
-                    rowNumber = SearchLecture(lectureTable, searchNumber, Constants.YEAR);
+                    rowNumber = SearchLecture(enrollmentTable, searchNumber, Constants.YEAR);
                     break;
 
                 case 5:    //교수명
                     Console.Write("교수명 검색 : ");
                     searchWord = Exception.Instance.InputString(1, 10);
-                    rowNumber = SearchLecture(lectureTable, searchWord, Constants.PROFESSOR_NAME);
+                    rowNumber = SearchLecture(enrollmentTable, searchWord, Constants.PROFESSOR_NAME);
                     break;
 
                 case 6:   //관심과목담기한 강의
                     rowNumber = PrintLeactures(myLecture.myInterestCourse,myLecture);
-                    if(rowNumber != 0) EnrollmentInInterest(myLecture,lectureTable);
+                    if(rowNumber != 0) EnrollmentInInterest(myLecture,interestTable, enrollmentTable);
                     return;
 
                 case 7:    //종료

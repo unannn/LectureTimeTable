@@ -27,7 +27,7 @@ namespace LectureTimeTable
             childCurrentState = Constants.START_MENU;
         }
 
-        public void intializeTable(List<LectureTable> lectureTable)  //엑셀에서 시간표를 불러와 lectureTable 리스트에 한행씩 저장
+        public void intializeTable(List<LectureTable> interestTable, List<LectureTable> enrollmentTable)  //엑셀에서 시간표를 불러와 lectureTable 리스트에 한행씩 저장
         {
             Excel.Application application = new Excel.Application();
             Excel.Workbook workbook = application.Workbooks.Open(Environment.CurrentDirectory + "\\2020년 1학기 강의시간표.xlsx");
@@ -45,7 +45,8 @@ namespace LectureTimeTable
                     lectureRoom = nullexception.ToString();
                 }
 
-                lectureTable.Add(new LectureTable(int.Parse(data.GetValue(1, 1).ToString()), data.GetValue(1, 2).ToString(), int.Parse(data.GetValue(1, 3).ToString()), data.GetValue(1, 4).ToString(), data.GetValue(1, 5).ToString(), data.GetValue(1, 6).ToString(), int.Parse(data.GetValue(1, 7).ToString()), double.Parse(data.GetValue(1, 8).ToString()), data.GetValue(1, 9).ToString(), lectureRoom, data.GetValue(1, 11).ToString(), data.GetValue(1, 12).ToString()));
+                interestTable.Add(new LectureTable(int.Parse(data.GetValue(1, 1).ToString()), data.GetValue(1, 2).ToString(), int.Parse(data.GetValue(1, 3).ToString()), data.GetValue(1, 4).ToString(), data.GetValue(1, 5).ToString(), data.GetValue(1, 6).ToString(), int.Parse(data.GetValue(1, 7).ToString()), double.Parse(data.GetValue(1, 8).ToString()), data.GetValue(1, 9).ToString(), lectureRoom, data.GetValue(1, 11).ToString(), data.GetValue(1, 12).ToString()));
+                enrollmentTable.Add(new LectureTable(int.Parse(data.GetValue(1, 1).ToString()), data.GetValue(1, 2).ToString(), int.Parse(data.GetValue(1, 3).ToString()), data.GetValue(1, 4).ToString(), data.GetValue(1, 5).ToString(), data.GetValue(1, 6).ToString(), int.Parse(data.GetValue(1, 7).ToString()), double.Parse(data.GetValue(1, 8).ToString()), data.GetValue(1, 9).ToString(), lectureRoom, data.GetValue(1, 11).ToString(), data.GetValue(1, 12).ToString()));
             }
 
             application.Workbooks.Close();
@@ -64,7 +65,7 @@ namespace LectureTimeTable
             }          
         }
 
-        public void RunInterestLeactureEnrollment(List<LectureTable> lectureTable, MyLecture myLecture, LectureView view,InterestLectureView interestView)
+        public void RunInterestLeactureEnrollment(List<LectureTable> interestTable, MyLecture myLecture, LectureView view,InterestLectureView interestView)
         {
             
             int selectedNumber;
@@ -87,11 +88,11 @@ namespace LectureTimeTable
 
                     case Constants.INTEREST_LECTURE_SEARCHING:
                         selectedSearchingType = interestView.SeruchLectureTypes();
-                        interestView.StartSelectedItem(selectedSearchingType,lectureTable,myLecture);
+                        interestView.StartSelectedItem(selectedSearchingType, interestTable, myLecture);
                         break;
 
                     case Constants.INTEREST_LECTURE_DELETION:
-                        interestView.DeleteInterestLecture(myLecture,lectureTable);
+                        interestView.DeleteInterestLecture(myLecture, interestTable);
                         break;
 
                     case Constants.INTEREST_LECTURE_ENDING:
@@ -106,7 +107,7 @@ namespace LectureTimeTable
             }
         }
 
-        public void RunLeactureEnrollment(List<LectureTable> lectureTable, MyLecture myLecture, LectureView view, EnrollmentView enrollmentView)
+        public void RunLeactureEnrollment(List<LectureTable> interestTable, List<LectureTable> enrollmentTable, MyLecture myLecture, LectureView view, EnrollmentView enrollmentView)
         {
             int selectedNumber;
             int selectedSearchingType;
@@ -124,13 +125,13 @@ namespace LectureTimeTable
 
                 switch (selectedNumber)
                 {
-                    case Constants.My_ENROLLMENT_LECTURES:
+                    case Constants.My_ENROLLMENT_LECTURES:           //현재 수강신청한 강의 보기
                         enrollmentView.PrintLeactures(myLecture.mySucessfulCourse,myLecture);
                         break;
 
                     case Constants.START_ENROLLMENT:
                         selectedSearchingType = enrollmentView.SeruchLectureTypes();
-                        enrollmentView.StartEnrollment(selectedSearchingType, lectureTable, myLecture);
+                        enrollmentView.StartEnrollment(selectedSearchingType, interestTable, enrollmentTable, myLecture);
                         break;
 
                     case Constants.ENROLLMENT_LECTURE_DELETION:
@@ -150,7 +151,7 @@ namespace LectureTimeTable
         }                    
 
         
-        public void RunCurrentTimetable(List<LectureTable> lectureTable, MyLecture myLecture, LectureView view)
+        public void RunCurrentTimetable(MyLecture myLecture, LectureView view)
         {
             Console.Clear();
             view.PrintTitle(Constants.INITIAL_TITLE_BOARDER, " 내 시간표 "); //부제출력

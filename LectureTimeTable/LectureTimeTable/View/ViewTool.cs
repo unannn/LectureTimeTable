@@ -289,7 +289,7 @@ namespace LectureTimeTable
             return rowNumber;
         }
 
-        protected void EnrollmentInInterest(MyLecture myLecture, List<LectureTable> lectureTable)  //관심과목에서 수강신청 메소드
+        protected void EnrollmentInInterest(MyLecture myLecture, List<LectureTable> interestTable, List<LectureTable> enrollmentTable)  //관심과목에서 수강신청 메소드
         {
             int addLectureNumber;
             int lectureTableIndex;

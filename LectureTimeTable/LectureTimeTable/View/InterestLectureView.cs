@@ -104,8 +104,8 @@ namespace LectureTimeTable
                     rowNumber = SearchLecture(lectureTable, searchWord, Constants.DEPARTMENT);
                     break;
 
-                case 2:     //학수번호
-                    Console.Write("학수번호 검색 : ");
+                case 2:     //학수번호와 분반으로 검색
+                    Console.Write("학수번호와 분반으로 검색 : ");
                     searchNumber = Exception.Instance.InputNumber(1, 100000);
                     rowNumber = SearchLecture(lectureTable, searchNumber, Constants.COURSE_NUMBER);
                     break;
