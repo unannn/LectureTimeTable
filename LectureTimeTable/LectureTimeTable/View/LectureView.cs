@@ -40,7 +40,7 @@ namespace LectureTimeTable
         public void PrintinitialLeactureTable()   //초기 빈 테이블 출력
         {
             PrintLectureItemName();
-            PrintBlankTable(23);
+            PrintBlankTable(14, Constants.UNDER_TABLE_Y);
         }
 
 

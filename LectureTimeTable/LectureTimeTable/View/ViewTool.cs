@@ -201,12 +201,18 @@ namespace LectureTimeTable
             Console.Write(spaceBar);
         }
 
-        public void PrintBlankTable(int line)
+        public void PrintBlankTable(int line, int LineLocation)
         {
+            
+            Console.SetCursorPosition(0, LineLocation);
+
+            
             for (int i = 0; i < line; i++)
             {
                 Console.WriteLine(new string(' ', 188));
             }
+
+            Console.SetCursorPosition(0, LineLocation);
         }
 
         public int SearchLecture(List<LectureTable> lecturetable, string word, int serchType)
@@ -305,9 +311,8 @@ namespace LectureTimeTable
             int addLectureNumber;
             int lectureTableIndex;
 
-            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
-            PrintBlankTable(17);
-            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+            PrintBlankTable(14, Constants.UNDER_TABLE_Y+1);
+
             Console.WriteLine();
 
             Console.Write("수강신청할 강의 NO. 입력 : ");
@@ -345,22 +350,6 @@ namespace LectureTimeTable
                             return;
                         }
                     }
-                    // 위에 조건들을 통과하면 수강신청 실행
-                    //for(int i = 0;i < enrollmentTable.Count;i++)
-                    //{
-                    //    if (enrollmentTable[i].Key == myLecture.myInterestCourse[lectureTableIndex].Key)
-                    //    {
-                    //        myLecture.MyInterestCredits -= enrollmentTable[i].Credit;
-                    //        myLecture.mySucessfulCourse.Add(enrollmentTable[i]);   //수강신청 성공
-                    //        myLecture.MyEnrollmentCredits += enrollmentTable[i].Credit;
-                    //        myLecture.myInterestCourse.RemoveAt(lectureTableIndex);
-                    //        enrollmentTable.RemoveAt(i);
-
-                    //        PrintFailMessage("수강신청을 완료 했습니다.", 0);
-
-                    //        return;
-                    //    }
-                    //}
 
                     myLecture.MyInterestCredits -= myLecture.myInterestCourse[lectureTableIndex].Credit;
                     myLecture.mySucessfulCourse.Add(myLecture.myInterestCourse[lectureTableIndex]);   //수강신청 성공
@@ -399,10 +388,6 @@ namespace LectureTimeTable
 
             return isOverlap;
         }
-
-        protected void PrintTableBox(LectureTable OneLecture)
-        {
-            
-        }
+        
     }
 }

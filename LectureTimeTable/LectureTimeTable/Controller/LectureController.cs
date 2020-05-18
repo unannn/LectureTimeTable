@@ -74,6 +74,7 @@ namespace LectureTimeTable
 
                 Console.WriteLine(new string('-', Console.LargestWindowWidth - 4));
                 selectedNumber = interestView.PrintInterestLeactureMenu();
+
                 switch (selectedNumber)
                 {
                     case Constants.My_INTEREST_LECTURES:

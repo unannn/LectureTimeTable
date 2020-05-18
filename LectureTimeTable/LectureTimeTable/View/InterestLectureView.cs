@@ -11,7 +11,6 @@ namespace LectureTimeTable
         public int PrintInterestLeactureMenu()
         {
             int selectedItem = 0;
-
             List<string> menu = new List<string>()
             {
                 "1. 내 관심과목",
@@ -19,14 +18,14 @@ namespace LectureTimeTable
                 "3, 관심과목 삭제",
                 "4. 관심과목 담기 종료"
             };
-            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
-            PrintBlankTable(14);
-            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+
+            //PrintBlankTable(14, Constants.UNDER_TABLE_Y+1);
+
             Console.WriteLine();
            
-            PrintMenu(menu, 0);
-
-            Console.Write(" 메뉴 선택 : ");
+            PrintMenu(menu, Constants.INITIAL_TITLE_BOARDER);
+            PrintLeftGap(Constants.INITIAL_TITLE_BOARDER);
+            Console.Write("메뉴 선택 : ");
 
             selectedItem = Exception.Instance.InputNumber(Constants.START_NUMBER, menu.Count);
 
@@ -34,34 +33,34 @@ namespace LectureTimeTable
             {
                 PrintFailMessage("다시 입력해 주세요.", Constants.INITIAL_TITLE_BOARDER);
             }
-
-            //Console.Clear();
-            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
-            PrintBlankTable(10);
-            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+            
+            PrintBlankTable(10, Constants.UNDER_TABLE_Y+1);
 
             return selectedItem;
         }
 
         public void PrintMyInterestLeactures(MyLecture myLecture)   //내가 관심과목으로 담은 강의들 리스트 출력
         {
-            Console.SetCursorPosition(0, Constants.UNDER_TITLE_Y);
-
+            
             if (myLecture.myInterestCourse.Count != 0)
             {
+                Console.SetCursorPosition(0, Constants.UNDER_TITLE_Y);
+
                 foreach (LectureTable row in myLecture.myInterestCourse)
                 {
                     PrintOneRowLecture(row);
                 }
+
                 Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Constants.UNDER_TABLE_Y + 3);
                 Console.WriteLine("현재 신청한 학점 : {0}/24 ", myLecture.MyInterestCredits);
-                PrintFailMessage("", 0);
+                PrintFailMessage("", Constants.INITIAL_TITLE_BOARDER);
             }
             else
             {
-                PrintFailMessage("관심과목으로 담은 강의가 없습니다", 0);
-                Console.SetCursorPosition(0, Constants.UNDER_TITLE_Y);
-                PrintBlankTable(2);
+                Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y + 3);
+
+                PrintFailMessage("관심과목으로 담은 강의가 없습니다", Constants.INITIAL_TITLE_BOARDER);
+               
             }
         }
 
@@ -77,10 +76,12 @@ namespace LectureTimeTable
                 "6. 검색 종료"
             };
             int inputNumber;
-            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
-            PrintBlankTable(10);
-            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
-            PrintMenu(serchingItem, 0);
+
+            PrintBlankTable(10, Constants.UNDER_TABLE_Y+1);
+            Console.WriteLine();
+            PrintMenu(serchingItem, Constants.INITIAL_TITLE_BOARDER);
+            PrintLeftGap(Constants.INITIAL_TITLE_BOARDER);
+
             Console.Write("메뉴 선택 : ");
 
             inputNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, serchingItem.Count);
@@ -97,9 +98,9 @@ namespace LectureTimeTable
             int rowNumber = 0;
             int lectureTableIndex;
 
-            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
-            PrintBlankTable(14);
-            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+            PrintBlankTable(14, Constants.UNDER_TABLE_Y+1);
+
+            Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER,Console.CursorTop + 1);
 
             switch (selectedItem)
             {
@@ -112,6 +113,9 @@ namespace LectureTimeTable
                 case 2:     //학수번호와 분반으로 검색
                     Console.Write("학수번호 : ");
                     searchNumber = Exception.Instance.InputNumber(1, 100000);
+
+                    Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Console.CursorTop);
+
                     Console.Write("분반 : ");
                     dividedClassNumber = Exception.Instance.InputNumber(1, 21); 
 
@@ -142,7 +146,8 @@ namespace LectureTimeTable
 
             if (rowNumber == 0)
             {
-                PrintFailMessage("검색한 강의를 찾을 수 없습니다.", 0);
+                Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y + 3);
+                PrintFailMessage("검색한 강의를 찾을 수 없습니다.", Constants.INITIAL_TITLE_BOARDER);
                 return;
             }
 
@@ -163,7 +168,7 @@ namespace LectureTimeTable
 
                     if (lectureTableIndex == interestTable.Count)
                     {
-                        PrintFailMessage("해당 강의가 없습니다.", 0);
+                        PrintFailMessage("해당 강의가 없습니다.", Constants.INITIAL_TITLE_BOARDER);
                         return;
                     }
 
@@ -173,7 +178,7 @@ namespace LectureTimeTable
                         {
                             if (myLecture.myInterestCourse[row].CourseNumber == interestTable[lectureTableIndex].CourseNumber)   //학수번호가 같을 경우
                             {
-                                PrintFailMessage("이미 추가된 강의입니다.", 0);
+                                PrintFailMessage("이미 추가된 강의입니다.", Constants.INITIAL_TITLE_BOARDER);
                                 return;
                             }
                         }
@@ -182,26 +187,28 @@ namespace LectureTimeTable
                         myLecture.MyInterestCredits += interestTable[lectureTableIndex].Credit;
                         interestTable.RemoveAt(lectureTableIndex);
 
-                        PrintFailMessage("관심과목에 추가되었습니다.", 0);
+                        PrintFailMessage("관심과목에 추가되었습니다.", Constants.INITIAL_TITLE_BOARDER);
                     }
                     else
                     {
-                        PrintFailMessage("더이상 담을 수 없습니다.", 0);
+                        PrintFailMessage("더이상 담을 수 없습니다.", Constants.INITIAL_TITLE_BOARDER);
                     }
                 }
                 else
                 {
-                    PrintFailMessage("잘못된 입력입니다.", 0);
+                    PrintFailMessage("잘못된 입력입니다.", Constants.INITIAL_TITLE_BOARDER);
                 }
             }
         }
 
-        public void DeleteInterestLecture(MyLecture myLecture, List<LectureTable> lectureTable)
+        public void DeleteInterestLecture(MyLecture myLecture, List<LectureTable> interestTable)
         {
             int inputNumber;
+
             PrintMyInterestLeactures(myLecture);
-            Console.SetCursorPosition(0, Console.CursorTop - 1);
-            PrintBlankTable(1);
+            Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Console.CursorTop - 1);
+
+            if (myLecture.myInterestCourse.Count == 0) return; //관심과목으로 담은 강의가 없을 경우 종료
 
             Console.Write("삭제할 과목의 NO 입력 : ");
             inputNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, 160);
@@ -212,17 +219,17 @@ namespace LectureTimeTable
                 {
                     if (inputNumber == myLecture.myInterestCourse[row].Key)
                     {
-                        myLecture.MyInterestCredits -= myLecture.myInterestCourse[row].Credit; 
-                        lectureTable.Add(myLecture.myInterestCourse[row]);
+                        myLecture.MyInterestCredits -= myLecture.myInterestCourse[row].Credit;
+                        interestTable.Add(myLecture.myInterestCourse[row]);
                         myLecture.myInterestCourse.RemoveAt(row);
 
-                        PrintFailMessage("삭제되었습니다.", 0);
+                        PrintFailMessage("삭제되었습니다.", Constants.INITIAL_TITLE_BOARDER);
                         return;
                     }
                 }
             }
 
-            PrintFailMessage("해당 강의가 없습니다.", 0);
+            PrintFailMessage("해당 강의가 없습니다.", Constants.INITIAL_TITLE_BOARDER);
         }
     }
 }

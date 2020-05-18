@@ -20,9 +20,8 @@ namespace LectureTimeTable
                 "4. 수강신청 종료"
             };
 
-            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
-            PrintBlankTable(14);
-            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+            PrintBlankTable(14, Constants.UNDER_TABLE_Y+1);
+
             Console.WriteLine();
 
             PrintMenu(menu, 0);
@@ -36,9 +35,8 @@ namespace LectureTimeTable
                 PrintFailMessage("다시 입력해 주세요.", Constants.INITIAL_TITLE_BOARDER);
             }
 
-            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
-            PrintBlankTable(10);
-            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+            PrintBlankTable(14, Constants.UNDER_TABLE_Y+1);
+
 
             return selectedItem;
         }
@@ -55,8 +53,9 @@ namespace LectureTimeTable
                     PrintOneRowLecture(row);
                     rowNumber++;
                 }
-                Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
-                PrintBlankTable(17);
+
+                PrintBlankTable(14, Constants.UNDER_TABLE_Y+1);
+
 
                 Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Constants.UNDER_TABLE_Y + 3);
 
@@ -67,13 +66,13 @@ namespace LectureTimeTable
             }
             else
             {
-                Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
-                PrintBlankTable(17);
-                Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y + 3);
+                PrintBlankTable(14, Constants.UNDER_TABLE_Y+1);
+
 
                 PrintFailMessage("강의가 없습니다", 0);
-                Console.SetCursorPosition(0, Constants.UNDER_TITLE_Y);
-                PrintBlankTable(2);
+
+                PrintBlankTable(14, Constants.UNDER_TABLE_Y+1);
+
             }
 
             return rowNumber;
@@ -92,9 +91,9 @@ namespace LectureTimeTable
                 "7. 검색 종료"
             };
             int inputNumber;
-            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
-            PrintBlankTable(10);
-            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+
+            PrintBlankTable(14, Constants.UNDER_TABLE_Y+1);
+
             PrintMenu(serchingItem, 0);
             Console.Write("메뉴 선택 : ");
 
@@ -223,9 +222,12 @@ namespace LectureTimeTable
         public void DeleteEnrollmentLecture(MyLecture myLecture, List<LectureTable> enrollmentTable)  //삭제하면 관심과목이 아닐때도 관심과목으로 복구되는것 수정할것 
         {
             int inputNumber;
+
             PrintLeactures(myLecture.mySucessfulCourse, myLecture);
+
             Console.SetCursorPosition(0, Console.CursorTop - 1);
-            PrintBlankTable(1);
+
+            PrintBlankTable(14, Constants.UNDER_TABLE_Y+1);
 
             Console.Write("삭제할 과목의 NO 입력 : ");
             inputNumber = Exception.Instance.InputNumber(Constants.START_NUMBER, 160);
