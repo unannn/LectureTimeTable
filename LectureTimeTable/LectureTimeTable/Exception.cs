@@ -53,7 +53,7 @@ namespace LectureTimeTable
 
             inputString = Console.ReadLine();
 
-            if (!string.IsNullOrEmpty(inputString) && inputString.Length >= above && inputString.Length <= below)       // above 이상 below 이하의 길이 일때
+            if (!string.IsNullOrEmpty(inputString) && inputString.Length >= above && inputString.Length <= below && inputString != " ")       // above 이상 below 이하의 길이 일때
             {
                 return inputString;
             }

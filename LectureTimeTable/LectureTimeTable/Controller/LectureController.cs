@@ -20,7 +20,7 @@ namespace LectureTimeTable
         {
             currentState = Constants.START_MENU;
         }
-
+        //엑셀 파일을 불러와 두개의 테이블 리스트에 담아줌
         public void intializeTable(List<LectureTable> interestTable, List<LectureTable> enrollmentTable)  //엑셀에서 시간표를 불러와 두 테이블 리스트에 한행씩 저장
         {
             Excel.Application application = new Excel.Application();
@@ -46,8 +46,8 @@ namespace LectureTimeTable
             application.Workbooks.Close();
             application.Quit();
         }
-
-        public void RunInitailScene(LectureView view)
+        //초기 화면
+        public void RunInitailScene(LectureView view)  
         {
             int selectedNumber;
 
@@ -58,10 +58,9 @@ namespace LectureTimeTable
                 currentState = selectedNumber;                 //장면 전환               
             }          
         }
-
+        //관심과목 신청 
         public void RunInterestLeactureEnrollment(List<LectureTable> interestTable, MyLecture myLecture, LectureView view,InterestLectureView interestView)
-        {
-            
+        {            
             int selectedNumber;
             int selectedSearchingType;
             bool isRunning = true;                                 
@@ -77,16 +76,16 @@ namespace LectureTimeTable
 
                 switch (selectedNumber)
                 {
-                    case Constants.My_INTEREST_LECTURES:
+                    case Constants.My_INTEREST_LECTURES:  //내가 담은 관심과목
                         interestView.PrintMyInterestLeactures(myLecture);
                         break;
 
-                    case Constants.INTEREST_LECTURE_SEARCHING:
+                    case Constants.INTEREST_LECTURE_SEARCHING:  //관심과목 검색 후 신청
                         selectedSearchingType = interestView.SeruchLectureTypes();
                         interestView.StartSelectedItem(selectedSearchingType, interestTable, myLecture);
                         break;
 
-                    case Constants.INTEREST_LECTURE_DELETION:
+                    case Constants.INTEREST_LECTURE_DELETION:  //관심과목 삭제
                         interestView.DeleteInterestLecture(myLecture, interestTable);
                         break;
 
@@ -101,7 +100,7 @@ namespace LectureTimeTable
                 }
             }
         }
-
+        //수강 신청
         public void RunLeactureEnrollment(List<LectureTable> interestTable, List<LectureTable> enrollmentTable, MyLecture myLecture, LectureView view, EnrollmentView enrollmentView)
         {
             int selectedNumber;
@@ -124,16 +123,16 @@ namespace LectureTimeTable
                         enrollmentView.PrintLeactures(myLecture.mySucessfulCourse,myLecture);
                         break;
 
-                    case Constants.START_ENROLLMENT:
+                    case Constants.START_ENROLLMENT:                 //수강신청 시작
                         selectedSearchingType = enrollmentView.SeruchLectureTypes();
                         enrollmentView.StartEnrollment(selectedSearchingType, interestTable, enrollmentTable, myLecture);
                         break;
 
-                    case Constants.ENROLLMENT_LECTURE_DELETION:
+                    case Constants.ENROLLMENT_LECTURE_DELETION:      //신청한 과목 삭제
                         enrollmentView.DeleteEnrollmentLecture(myLecture,enrollmentTable);
                         break;
 
-                    case Constants.ENROLLMENT_ENDING:
+                    case Constants.ENROLLMENT_ENDING:              //수강신청 종료
                         isRunning = false;
                         currentState = Constants.START_MENU;
                         Console.Clear();
@@ -144,8 +143,7 @@ namespace LectureTimeTable
                 }
             }
         }                    
-
-        
+        //시간표        
         public void RunCurrentTimetable(MyLecture myLecture, LectureView view)
         {
             Console.Clear();
@@ -158,23 +156,39 @@ namespace LectureTimeTable
             Excel.Sheets sheets = workbook.Sheets;
             Excel._Worksheet worksheet = (Excel._Worksheet)application.ActiveSheet;
 
-            var data = new object[24, 5];
+            var data = new object[25, 6];
+            
+            data[0, 1] = "월";
+            data[0, 2] = "화";
+            data[0, 3] = "수";
+            data[0, 4] = "목";
+            data[0, 5] = "금";
 
-            for (int row = 0; row < 24; row++)
+
+            for (int time = 0; time < 24; time++)
             {
-                for (int column = 0; column < 5; column++)
+
+
+                data[time + 1, 0] = "";
+
+                if (time / 4 == 0) data[time + 1, 0] += "0";
+                data[time + 1, 0] += ((time + 16) / 2).ToString() + ":";
+                if (time % 2 == 1) data[time + 1, 0] += "30";
+                else data[time + 1, 0] += "00";
+
+                for (int day = 0; day < 5; day++)
                 {
                     for (int lectureCount = 0; lectureCount < myLecture.mySucessfulCourse.Count; lectureCount++)
                     {
-                        if (myLecture.mySucessfulCourse[lectureCount].timeTable[row, column] == 1)
+                        if (myLecture.mySucessfulCourse[lectureCount].timeTable[time, day] == 1)
                         {
-                            data[row, column] = myLecture.mySucessfulCourse[lectureCount].CourseTitle + "\n" + myLecture.mySucessfulCourse[lectureCount].LectureRoom;
+                            data[time + 1, day + 1] = myLecture.mySucessfulCourse[lectureCount].CourseTitle + "\n" + myLecture.mySucessfulCourse[lectureCount].LectureRoom;
                         }
                     }
                 }
             }
 
-            var startCell = worksheet.Cells[2, 2];
+            var startCell = worksheet.Cells[1, 1];
             var endCell = worksheet.Cells[25, 6];
             var writeRange = worksheet.Range[startCell, endCell];
 

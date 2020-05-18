@@ -20,7 +20,7 @@ namespace LectureTimeTable
             };
             PrintTitle(Constants.INITIAL_TITLE_BOARDER, "  HELLO STUDENT");
 
-            Console.WriteLine("\n\n\n");
+            Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n");
             PrintMenu(initialMenu, Constants.INITIAL_TITLE_BOARDER);
 
             Console.WriteLine("\n\n\n");
@@ -31,8 +31,7 @@ namespace LectureTimeTable
             if (selectedItem == Constants.WRONG_INPUT)
             {
                 PrintFailMessage("다시 입력해 주세요.", Constants.INITIAL_TITLE_BOARDER);
-            }
-            
+            }            
 
             return selectedItem;
         }
@@ -41,22 +40,14 @@ namespace LectureTimeTable
         {
             PrintLectureItemName();
             PrintBlankTable(14, Constants.UNDER_TABLE_Y);
-        }
-
-
-        public void PrintInputGuide(List<string> guideList)
-        {
-            foreach (string guide in guideList)
-            {
-                Console.Write("  " + guide);
-            }
-        }
-        public void PrintTimeTable(List<LectureTable> enrollmentTable)
+        }        
+        
+        public void PrintTimeTable(List<LectureTable> enrollmentTable)   //시간표출력
         {
 
             for (int time = 0; time < 24; time++)
             {
-                Console.SetCursorPosition(5+35, time * 3 + 10);  //시간 출력
+                Console.SetCursorPosition(20, time * 4 + 15);  //시간 출력
                 if (time / 4 == 0) Console.Write("0");
                 Console.Write((time+16)/2 + ":");
                 if (time % 2 == 1) Console.Write("30");
@@ -64,7 +55,7 @@ namespace LectureTimeTable
 
                 for (int day = 0; day < 5; day++)
                 {
-                    Console.SetCursorPosition(day * 20 + 30+35,Constants.UNDER_TITLE_Y-2);
+                    Console.SetCursorPosition(day * 25 + 30+10,Constants.UNDER_TITLE_Y-2);
 
                     switch (day)
                     {
@@ -89,17 +80,20 @@ namespace LectureTimeTable
                     {
                         if(enrollmentTable[lectureCount].timeTable[time,day] == 1)
                         {
-                            Console.SetCursorPosition(day * 20 + 30+35, time * 3 + 10);
+                            Console.SetCursorPosition(day * 25 + 35, time * 4 + 15);
                             Console.WriteLine(enrollmentTable[lectureCount].CourseTitle);
-                            Console.SetCursorPosition(day * 20 + 30+35, time * 3 + 1 + 10);
+                            Console.SetCursorPosition(day * 25 + 35, time * 4 + 1 + 15);
                             Console.Write(enrollmentTable[lectureCount].LectureRoom);
                         }
                     }
+                    Console.SetCursorPosition(20, time * 4 + 18);
+                    Console.WriteLine(new string('-', Console.LargestWindowWidth - 39));
                 }
             }
-            Console.SetCursorPosition(90, 24* 3 + 10);
 
-            PrintFailMessage("", 0);
+            Console.SetCursorPosition(0, 24 * 4 + 20);
+
+            PrintFailMessage("", Constants.INITIAL_TITLE_BOARDER);
 
         }
 
