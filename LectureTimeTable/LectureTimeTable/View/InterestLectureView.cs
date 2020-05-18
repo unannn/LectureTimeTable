@@ -51,7 +51,7 @@ namespace LectureTimeTable
                 }
 
                 Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Constants.UNDER_TABLE_Y + 3);
-                Console.WriteLine("현재 신청한 학점 : {0}/24 ", myLecture.MyInterestCredits);
+                Console.WriteLine("현재 관심과목으로 담은 학점 : {0}/24 ", myLecture.MyInterestCredits);
                 PrintFailMessage("", Constants.INITIAL_TITLE_BOARDER);
             }
             else

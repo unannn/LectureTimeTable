@@ -61,7 +61,7 @@ namespace LectureTimeTable
                 Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Constants.UNDER_TABLE_Y + 2);
 
                 if (myLecture.myInterestCourse != lectures)Console.WriteLine("현재 신청한 학점 : {0}/21 ", myLecture.MyEnrollmentCredits);
-                else Console.WriteLine("현재 신청한 학점 : {0}/24 ", myLecture.MyInterestCredits);
+                else Console.WriteLine("현재 관심과목으로 담은 학점 : {0}/24 ", myLecture.MyInterestCredits);
 
                 PrintFailMessage("", Constants.INITIAL_TITLE_BOARDER);
             }
@@ -209,7 +209,7 @@ namespace LectureTimeTable
                                 return;
                             }
                         }
-
+                        
                         myLecture.mySucessfulCourse.Add(enrollmentTable[lectureTableIndex]);
                         myLecture.MyEnrollmentCredits += enrollmentTable[lectureTableIndex].Credit;
                         enrollmentTable.RemoveAt(lectureTableIndex);

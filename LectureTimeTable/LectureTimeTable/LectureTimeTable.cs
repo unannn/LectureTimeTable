@@ -22,7 +22,8 @@ namespace LectureTimeTable
 
             Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
 
-            Console.WriteLine("Loading... \n(Window 키 + 방향키↑로 전체화면)");        //엑셀을 불러오는동안 로딩
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 20, 25);
+            Console.WriteLine("Loading... (Window 키 + 방향키↑로 전체화면)");        //엑셀을 불러오는동안 로딩
             lectureController.intializeTable(interestTable, enrollmentTable); //lectureTable 에 엑셀에서 불러온 테이블 저장
             Console.SetCursorPosition(0,0);
 
