@@ -73,9 +73,9 @@ namespace LectureTimeTable
 
         }
 
-        protected void PrintLectureItemName()
+        protected void PrintLectureItemName()         //강의 항목별 이름 출력
         {
-            string bar = new string('-', Console.LargestWindowWidth - 4);   //강의 항목별 이름 출력
+            string bar = new string('-', Console.LargestWindowWidth - 4);   
 
 
             PrintOneCell("NO", Constants.KEY);
@@ -208,6 +208,7 @@ namespace LectureTimeTable
                 Console.WriteLine(new string(' ', 188));
             }
         }
+
         public int SearchLecture(List<LectureTable> lecturetable, string word, int serchType)
         {
             int rowNumber = 0;
@@ -254,7 +255,8 @@ namespace LectureTimeTable
 
             return rowNumber;
         }
-        protected int SearchLecture(List<LectureTable> lecturetable, int number, int serchType)
+
+        protected int SearchLectureOnYear(List<LectureTable> lecturetable, int number)
         {
             int rowNumber = 0;
 
@@ -263,29 +265,38 @@ namespace LectureTimeTable
 
             Console.SetCursorPosition(0, Constants.UNDER_TITLE_Y);
 
-            switch (serchType)
+
+            foreach (LectureTable row in lecturetable)
             {
-                case Constants.COURSE_NUMBER:
-                    foreach (LectureTable row in lecturetable)
-                    {
-                        if (row.CourseNumber == number)
-                        {
-                            PrintOneRowLecture(row);
-                            ++rowNumber;
-                        }
-                    }
-                    break;
-                case Constants.YEAR:
-                    foreach (LectureTable row in lecturetable)
-                    {
-                        if (row.Year == number)
-                        {
-                            PrintOneRowLecture(row);
-                            ++rowNumber;
-                        }
-                    }
-                    break;
+                if (row.Year == number)
+                {
+                    PrintOneRowLecture(row);
+                    ++rowNumber;
+                }
             }
+
+            return rowNumber;
+        }
+
+        protected int SearchLecture(List<LectureTable> lecturetable, int CorseNumber, int dividedNumber)
+        {
+            int rowNumber = 0;
+
+            if (CorseNumber == Constants.WRONG_INPUT || dividedNumber == Constants.WRONG_INPUT) return rowNumber;
+
+
+            Console.SetCursorPosition(0, Constants.UNDER_TITLE_Y);
+
+
+            foreach (LectureTable row in lecturetable)
+            {
+                if (row.CourseNumber == CorseNumber && int.Parse(row.DividedClassNumber) == dividedNumber)
+                {
+                    PrintOneRowLecture(row);
+                    ++rowNumber;
+                }
+            }
+
             return rowNumber;
         }
 

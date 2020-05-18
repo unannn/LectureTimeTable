@@ -48,7 +48,7 @@ namespace LectureTimeTable
                         lectureController.RunCurrentTimetable(myLecture, lectureView);
                         break;
 
-                    case Constants.PROGRAM_END:
+                    case Constants.PROGRAM_END:           //프로그램 종료
                         isRunning = false;
                         break;
 
@@ -56,8 +56,6 @@ namespace LectureTimeTable
                         break;
                 }
             }
-           
-
         }
     }
 }

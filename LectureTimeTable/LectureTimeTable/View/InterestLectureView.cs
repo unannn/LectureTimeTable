@@ -69,11 +69,11 @@ namespace LectureTimeTable
         {
             List<string> serchingItem = new List<string>()
             {
-                "1. 개설학과전공",
-                "2. 학수번호",
-                "3. 교과목명",
-                "4. 학년",
-                "5, 교수명",
+                "1. 개설학과전공으로 검색",
+                "2. 학수번호와 분반으로 검색",
+                "3. 교과목명으로 검색",
+                "4. 학년으로 검색",
+                "5, 교수명으로 검색",
                 "6. 검색 종료"
             };
             int inputNumber;
@@ -88,44 +88,52 @@ namespace LectureTimeTable
             return inputNumber;
         }
 
-        public void StartSelectedItem(int selectedItem, List<LectureTable> lectureTable, MyLecture myLecture)
+        public void StartSelectedItem(int selectedItem, List<LectureTable> interestTable, MyLecture myLecture)
         {
             string searchWord = null;
             int searchNumber;
+            int dividedClassNumber;
             int addLectureNumber;
             int rowNumber = 0;
             int lectureTableIndex;
 
+            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+            PrintBlankTable(14);
+            Console.SetCursorPosition(0, Constants.UNDER_TABLE_Y);
+
             switch (selectedItem)
             {
                 case 1:     //개설학과전공
-                    Console.Write("개설학과전공 검색 : ");
+                    Console.Write("개설학과전공 : ");
                     searchWord = Exception.Instance.InputString(1, 10);
-                    rowNumber = SearchLecture(lectureTable, searchWord, Constants.DEPARTMENT);
+                    rowNumber = SearchLecture(interestTable, searchWord, Constants.DEPARTMENT);
                     break;
 
                 case 2:     //학수번호와 분반으로 검색
-                    Console.Write("학수번호와 분반으로 검색 : ");
+                    Console.Write("학수번호 : ");
                     searchNumber = Exception.Instance.InputNumber(1, 100000);
-                    rowNumber = SearchLecture(lectureTable, searchNumber, Constants.COURSE_NUMBER);
+                    Console.Write("분반 : ");
+                    dividedClassNumber = Exception.Instance.InputNumber(1, 21); 
+
+                    rowNumber = SearchLecture(interestTable, searchNumber, dividedClassNumber);
                     break;
 
                 case 3:     //교과목명
-                    Console.Write("교과목명 검색 : ");
+                    Console.Write("교과목명 : ");
                     searchWord = Exception.Instance.InputString(1, 10);
-                    rowNumber = SearchLecture(lectureTable, searchWord, Constants.COURSE_TITLE);
+                    rowNumber = SearchLecture(interestTable, searchWord, Constants.COURSE_TITLE);
                     break;
 
                 case 4:    //학년
-                    Console.Write("이수학년 검색 : ");
+                    Console.Write("이수학년 : ");
                     searchNumber = Exception.Instance.InputNumber(1, 4);
-                    rowNumber = SearchLecture(lectureTable, searchNumber, Constants.YEAR);
+                    rowNumber = SearchLectureOnYear(interestTable, searchNumber);
                     break;
 
                 case 5:    //교수명
-                    Console.Write("교수명 검색 : ");
+                    Console.Write("교수명 : ");
                     searchWord = Exception.Instance.InputString(1, 10);
-                    rowNumber = SearchLecture(lectureTable, searchWord, Constants.PROFESSOR_NAME);
+                    rowNumber = SearchLecture(interestTable, searchWord, Constants.PROFESSOR_NAME);
                     break;
 
                 case 6:    //종료
@@ -148,31 +156,31 @@ namespace LectureTimeTable
                 
                 if (addLectureNumber != Constants.WRONG_INPUT)
                 {
-                    for (lectureTableIndex = 0; lectureTableIndex < lectureTable.Count; lectureTableIndex++)
+                    for (lectureTableIndex = 0; lectureTableIndex < interestTable.Count; lectureTableIndex++)
                     {
-                        if (lectureTable[lectureTableIndex].Key == addLectureNumber) break;
+                        if (interestTable[lectureTableIndex].Key == addLectureNumber) break;
                     }
 
-                    if (lectureTableIndex == lectureTable.Count)
+                    if (lectureTableIndex == interestTable.Count)
                     {
                         PrintFailMessage("해당 강의가 없습니다.", 0);
                         return;
                     }
 
-                    if (myLecture.MyInterestCredits + lectureTable[lectureTableIndex].Credit <= 24)   //현재 관심과목에담은 학점이 24 이하일 때만
+                    if (myLecture.MyInterestCredits + interestTable[lectureTableIndex].Credit <= 24)   //현재 관심과목에담은 학점이 24 이하일 때만
                     {
                         for (int row = 0; row < myLecture.myInterestCourse.Count; row++)
                         {
-                            if (myLecture.myInterestCourse[row].CourseNumber == lectureTable[lectureTableIndex].CourseNumber)   //학수번호가 같을 경우
+                            if (myLecture.myInterestCourse[row].CourseNumber == interestTable[lectureTableIndex].CourseNumber)   //학수번호가 같을 경우
                             {
                                 PrintFailMessage("이미 추가된 강의입니다.", 0);
                                 return;
                             }
                         }
 
-                        myLecture.myInterestCourse.Add(lectureTable[lectureTableIndex]);
-                        myLecture.MyInterestCredits += lectureTable[lectureTableIndex].Credit;
-                        lectureTable.RemoveAt(lectureTableIndex);
+                        myLecture.myInterestCourse.Add(interestTable[lectureTableIndex]);
+                        myLecture.MyInterestCredits += interestTable[lectureTableIndex].Credit;
+                        interestTable.RemoveAt(lectureTableIndex);
 
                         PrintFailMessage("관심과목에 추가되었습니다.", 0);
                     }

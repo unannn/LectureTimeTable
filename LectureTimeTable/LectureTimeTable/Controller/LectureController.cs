@@ -10,24 +10,18 @@ namespace LectureTimeTable
     class LectureController
     {
         private int currentState;
-        private int childCurrentState;
         public int Currentstate
         {
             get { return currentState; }
             set { currentState = value; }
         }
-        public int ChildCurrentstate
-        {
-            get { return childCurrentState; }
-            set { childCurrentState = value; }
-        }
+        
         public LectureController()
         {
             currentState = Constants.START_MENU;
-            childCurrentState = Constants.START_MENU;
         }
 
-        public void intializeTable(List<LectureTable> interestTable, List<LectureTable> enrollmentTable)  //엑셀에서 시간표를 불러와 lectureTable 리스트에 한행씩 저장
+        public void intializeTable(List<LectureTable> interestTable, List<LectureTable> enrollmentTable)  //엑셀에서 시간표를 불러와 두 테이블 리스트에 한행씩 저장
         {
             Excel.Application application = new Excel.Application();
             Excel.Workbook workbook = application.Workbooks.Open(Environment.CurrentDirectory + "\\2020년 1학기 강의시간표.xlsx");
@@ -97,7 +91,7 @@ namespace LectureTimeTable
 
                     case Constants.INTEREST_LECTURE_ENDING:
                         isRunning = false;
-                        currentState = Constants.START_MENU;
+                        currentState = Constants.START_MENU;          //반복문이 종료되면 시작메뉴로 이동
                         Console.Clear();
                         break;
 
