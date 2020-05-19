@@ -231,6 +231,7 @@ namespace LectureTimeTable
         public void DeleteEnrollmentLecture(MyLecture myLecture, List<LectureTable> enrollmentTable)  //삭제하면 관심과목이 아닐때도 관심과목으로 복구되는것 수정할것 
         {
             int inputNumber;
+            int lectureIndex;
 
             PrintLeactures(myLecture.mySucessfulCourse, myLecture);
             Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Console.CursorTop - 1);
@@ -258,7 +259,22 @@ namespace LectureTimeTable
                         }
 
                         myLecture.MyEnrollmentCredits -= myLecture.mySucessfulCourse[row].Credit;
-                        enrollmentTable.Add(myLecture.mySucessfulCourse[row]);
+                        
+                        if (myLecture.mySucessfulCourse[row].Key == 160)                         //마지막 강의일 경우 마지막에 삽입하고 
+                        {
+                            enrollmentTable.Add(myLecture.mySucessfulCourse[row]);
+                        }
+                        else
+                        {
+                            for (lectureIndex = 0; lectureIndex < enrollmentTable.Count; lectureIndex++)      //아니면 NO 값을 기준으로 오름차순위치에 삽입
+                            {
+                                if (enrollmentTable[lectureIndex].Key > myLecture.mySucessfulCourse[row].Key)
+                                {
+                                    enrollmentTable.Insert(lectureIndex, myLecture.mySucessfulCourse[row]);
+                                    break;
+                                }
+                            }
+                        }
                         myLecture.mySucessfulCourse.RemoveAt(row);
                         PrintFailMessage("삭제되었습니다.", Constants.INITIAL_TITLE_BOARDER);
 

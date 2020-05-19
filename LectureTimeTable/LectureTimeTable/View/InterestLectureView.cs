@@ -203,7 +203,7 @@ namespace LectureTimeTable
         public void DeleteInterestLecture(MyLecture myLecture, List<LectureTable> interestTable)
         {
             int inputNumber;
-
+            int lectureIndex;
             PrintMyInterestLeactures(myLecture);
             Console.SetCursorPosition(Constants.INITIAL_TITLE_BOARDER, Console.CursorTop - 1);
 
@@ -219,7 +219,24 @@ namespace LectureTimeTable
                     if (inputNumber == myLecture.myInterestCourse[row].Key)
                     {
                         myLecture.MyInterestCredits -= myLecture.myInterestCourse[row].Credit;
-                        interestTable.Add(myLecture.myInterestCourse[row]);
+                       
+                        if (myLecture.myInterestCourse[row].Key == 160)                         //마지막 강의일 경우 마지막에 삽입하고 
+                        {
+                            interestTable.Add(myLecture.myInterestCourse[row]);
+                        }
+                        else
+                        {
+                            for (lectureIndex = 0; lectureIndex < interestTable.Count; lectureIndex++)      //아니면
+                            {
+                                if (interestTable[lectureIndex].Key > myLecture.myInterestCourse[row].Key)
+                                {
+                                    interestTable.Insert(lectureIndex, myLecture.myInterestCourse[row]);
+                                    break;
+                                }
+                            }
+                        }
+
+;
                         myLecture.myInterestCourse.RemoveAt(row);
 
                         PrintFailMessage("삭제되었습니다.", Constants.INITIAL_TITLE_BOARDER);

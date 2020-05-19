@@ -147,57 +147,62 @@ namespace LectureTimeTable
         public void RunCurrentTimetable(MyLecture myLecture, LectureView view)
         {
             Console.Clear();
+            int saveCheck = 2;
             view.PrintTitle(Constants.INITIAL_TITLE_BOARDER, " 내 시간표 "); //부제출력
 
-            view.PrintTimeTable(myLecture.mySucessfulCourse);
+            saveCheck = view.PrintTimeTable(myLecture.mySucessfulCourse);
 
-            Excel.Application application = new Excel.Application();
-            Excel.Workbook workbook = application.Workbooks.Add();
-            Excel.Sheets sheets = workbook.Sheets;
-            Excel._Worksheet worksheet = (Excel._Worksheet)application.ActiveSheet;
-
-            var data = new object[25, 6];
-            
-            data[0, 1] = "월";
-            data[0, 2] = "화";
-            data[0, 3] = "수";
-            data[0, 4] = "목";
-            data[0, 5] = "금";
-
-
-            for (int time = 0; time < 24; time++)
+           if(saveCheck == 1)  //사용자가 저장을 선택했을떄만 실행
             {
 
+                Excel.Application application = new Excel.Application();
+                Excel.Workbook workbook = application.Workbooks.Add();
+                Excel.Sheets sheets = workbook.Sheets;
+                Excel._Worksheet worksheet = (Excel._Worksheet)application.ActiveSheet;
 
-                data[time + 1, 0] = "";
+                var data = new object[25, 6];
 
-                if (time / 4 == 0) data[time + 1, 0] += "0";
-                data[time + 1, 0] += ((time + 16) / 2).ToString() + ":";
-                if (time % 2 == 1) data[time + 1, 0] += "30";
-                else data[time + 1, 0] += "00";
+                data[0, 1] = "월";
+                data[0, 2] = "화";
+                data[0, 3] = "수";
+                data[0, 4] = "목";
+                data[0, 5] = "금";
 
-                for (int day = 0; day < 5; day++)
+
+                for (int time = 0; time < 24; time++)
                 {
-                    for (int lectureCount = 0; lectureCount < myLecture.mySucessfulCourse.Count; lectureCount++)
+
+
+                    data[time + 1, 0] = "";
+
+                    if (time / 4 == 0) data[time + 1, 0] += "0";
+                    data[time + 1, 0] += ((time + 16) / 2).ToString() + ":";
+                    if (time % 2 == 1) data[time + 1, 0] += "30";
+                    else data[time + 1, 0] += "00";
+
+                    for (int day = 0; day < 5; day++)
                     {
-                        if (myLecture.mySucessfulCourse[lectureCount].timeTable[time, day] == 1)
+                        for (int lectureCount = 0; lectureCount < myLecture.mySucessfulCourse.Count; lectureCount++)
                         {
-                            data[time + 1, day + 1] = myLecture.mySucessfulCourse[lectureCount].CourseTitle + "\n" + myLecture.mySucessfulCourse[lectureCount].LectureRoom;
+                            if (myLecture.mySucessfulCourse[lectureCount].timeTable[time, day] == 1)
+                            {
+                                data[time + 1, day + 1] = myLecture.mySucessfulCourse[lectureCount].CourseTitle + "\n" + myLecture.mySucessfulCourse[lectureCount].LectureRoom;
+                            }
                         }
                     }
                 }
+
+                var startCell = worksheet.Cells[1, 1];
+                var endCell = worksheet.Cells[25, 6];
+                var writeRange = worksheet.Range[startCell, endCell];
+
+                writeRange.Value2 = data;
+
+                worksheet.SaveAs(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\TimeTable.xlsx");
+
+                application.Workbooks.Close();
+                application.Quit();              
             }
-
-            var startCell = worksheet.Cells[1, 1];
-            var endCell = worksheet.Cells[25, 6];
-            var writeRange = worksheet.Range[startCell, endCell];
-
-            writeRange.Value2 = data;
-
-            worksheet.SaveAs(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\TimeTable.xlsx");
-
-            application.Workbooks.Close();
-            application.Quit();
 
             Currentstate = Constants.START_MENU;
         }

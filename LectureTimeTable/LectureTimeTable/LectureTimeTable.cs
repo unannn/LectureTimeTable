@@ -10,6 +10,8 @@ namespace LectureTimeTable
     {
         public void StartProgram()
         {
+            Console.Title = "LectureTimeTable";
+
             List<LectureTable> interestTable = new List<LectureTable>();         //관심과목에 쓸 강의 리스트
             List<LectureTable> enrollmentTable = new List<LectureTable>();              //수강신청할 때 쓸 강의 리스트
             LectureView lectureView = new LectureView();
@@ -22,7 +24,9 @@ namespace LectureTimeTable
 
             Console.SetWindowSize(Console.LargestWindowWidth, Console.LargestWindowHeight);
 
-            Console.SetCursorPosition(Console.WindowWidth / 2 - 20, 25);
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 20, 24);
+            Console.WriteLine("               EN# 화이팅!!!!!!!!!");
+            Console.SetCursorPosition(Console.WindowWidth / 2 - 20, 26);
             Console.WriteLine("Loading... (Window 키 + 방향키↑로 전체화면)");        //엑셀을 불러오는동안 로딩
             lectureController.intializeTable(interestTable, enrollmentTable); //lectureTable 에 엑셀에서 불러온 테이블 저장
             Console.SetCursorPosition(0,0);

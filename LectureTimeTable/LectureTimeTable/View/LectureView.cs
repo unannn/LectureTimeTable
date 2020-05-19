@@ -42,8 +42,9 @@ namespace LectureTimeTable
             PrintBlankTable(14, Constants.UNDER_TABLE_Y);
         }        
         
-        public void PrintTimeTable(List<LectureTable> enrollmentTable)   //시간표출력
+        public int PrintTimeTable(List<LectureTable> enrollmentTable)   //시간표출력
         {
+            int saveCheck = 2;
 
             for (int time = 0; time < 24; time++)
             {
@@ -91,10 +92,23 @@ namespace LectureTimeTable
                 }
             }
 
-            Console.SetCursorPosition(0, 24 * 4 + 20);
-
-            PrintFailMessage("", Constants.INITIAL_TITLE_BOARDER);
-
+            while (true)       //저장할지 안 할지 물음
+            {
+                Console.SetCursorPosition(20, 24 * 4 + 20);
+                Console.Write(new string(' ', 165));
+                Console.SetCursorPosition(20, 24 * 4 + 20);
+                Console.Write("저장하려면 1, 저장하지 않으려면 2를 입력 : ");
+                saveCheck = Exception.Instance.InputNumber(1, 2);
+                if(saveCheck == 1 || saveCheck == 2)
+                {
+                    return saveCheck;
+                }
+                else
+                {
+                    Console.SetCursorPosition(20, 24 * 4 + 21);
+                    Console.Write("다시 입력해 주세요");
+                }
+            }
         }
 
     }
